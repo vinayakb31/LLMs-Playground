@@ -1,17 +1,20 @@
 import os
 import instructor
-from groq import Groq
+from groq import AsyncGroq
 from enum import Enum
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional
+from fastapi import FastAPI, HTTPException
 
 load_dotenv()
 
 client = instructor.from_groq(
-    Groq(api_key = os.getenv("GROQ_API_KEY")),
+    AsyncGroq(api_key = os.getenv("GROQ_API_KEY")),
     mode=instructor.Mode.JSON
 )
+
+app = FastAPI()
 
 class TicketPriority(str, Enum):
     LOW = 'low'
@@ -70,19 +73,28 @@ Output: {
 }
 '''
 
-ticket: ExtractedTicket = client.chat.completions.create(
-    model = "openai/gpt-oss-20b",
-    response_model = ExtractedTicket,
-    max_retries=2,
-    temperature=0.0,
-    messages=[
-        {
-            "role":"system", "content":SYSTEM_PROMPT
-        },
-        {
-            "role":"user", "content":"Great app!"
-        }
-    ]
-)
+class user_request(BaseModel):
+    input_str: str
 
-print(ticket.model_dump_json(indent=2))
+async def get_llm_output(input_str) -> ExtractedTicket:
+    ticket: ExtractedTicket = await client.chat.completions.create(
+        model = "openai/gpt-oss-20b",
+        response_model = ExtractedTicket,
+        max_retries=2,
+        temperature=0.0,
+        messages=[
+            {"role":"system", "content":SYSTEM_PROMPT},
+            {"role":"user", "content":input_str}
+        ]
+    )
+    
+    return ticket
+
+@app.post("/output/")
+async def output(request: user_request):
+    try:
+        llm_output = await get_llm_output(request.input_str)
+        return llm_output
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
