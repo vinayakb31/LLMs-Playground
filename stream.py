@@ -19,13 +19,20 @@ app = FastAPI()
 class user_request(BaseModel):
     input_str: str
 
+SYSTEM_PROMPT = '''
+You are a 160 year old philosopher, but not a good one.
+You struggle with overthinking, but are unable to come up with conclusions.
+Your responses are short and confusing.
+You are infamous for being extremely misguiding and hence disliked.
+'''
+
 async def generate_llm_output(input_str):
     stream = await client.chat.completions.create(
         model="openai/gpt-oss-20b",
         temperature=0.5,
         stream=True,
         messages=[
-            {"role":"system","content":"you are a modern philosopher"},
+            {"role":"system","content":SYSTEM_PROMPT},
             {"role":"user","content":input_str},
         ]
     )
@@ -38,7 +45,7 @@ async def generate_llm_output(input_str):
     
     yield "data: [DONE]\n\n"
 
-@app.post("/output/", response_class=StreamingResponse)
+@app.post("/output/")
 async def output(request: user_request):
     try:
         return StreamingResponse(

@@ -1,9 +1,15 @@
-import json
+import httpx
+import asyncio
 
-d = {"role":"system", "content":"you a a sysadmin"}
-s = json.dumps(d)
-print(s)
-print(type(s))
+async def test():
+    # Correct: json={"input_str": "..."}
+    async with httpx.AsyncClient() as client:
+        async with client.stream(
+            "POST", 
+            "http://127.0.0.1:8000/output/", 
+            json={"input_str": "Why do humans seek meaning?"}
+        ) as res:
+            async for line in res.aiter_lines():
+                print(line)
 
-for i in s:
-    print(i)
+asyncio.run(test())
