@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import StreamingResponse
 
 load_dotenv()
 
@@ -90,7 +91,7 @@ async def get_llm_output(input_str) -> ExtractedTicket:
     
     return ticket
 
-@app.post("/output/")
+@app.post("/output/", response_class=StreamingResponse)
 async def output(request: user_request):
     try:
         llm_output = await get_llm_output(request.input_str)
