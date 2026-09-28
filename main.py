@@ -91,7 +91,7 @@ async def get_llm_output(input_str) -> ExtractedTicket:
     
     return ticket
 
-@app.post("/output/", response_class=StreamingResponse)
+@app.post("/output/")
 async def output(request: user_request):
     try:
         llm_output = await get_llm_output(request.input_str)

@@ -1,6 +1,7 @@
 import os
 import instructor
 import asyncio
+import json
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from groq import AsyncGroq
@@ -32,7 +33,10 @@ async def generate_llm_output(input_str):
     async for chunk in stream:
         token = chunk.choices[0].delta.content
         if token:
-            yield token
+            payload = json.dumps({"token":token})
+            yield f"data: {payload}\n\n"
+    
+    yield "data: [DONE]\n\n"
 
 @app.post("/output/", response_class=StreamingResponse)
 async def output(request: user_request):
