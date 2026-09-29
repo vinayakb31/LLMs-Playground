@@ -1,0 +1,16 @@
+A high-performance, local chatbot implementation designed for efficient LLM inference. This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs.
+
+Key Features
+
+Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests.
+Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060.
+Persistent History: Integrated support for chat history management.
+Minimalist Design: Lightweight codebase focused on core functionality and performance.
+Prerequisites
+
+To run this repository, ensure your environment is configured with:
+
+Hardware: NVIDIA GPU (e.g., RTX 4060 recommended).
+Software: * Python 3.10+
+CUDA Toolkit compatible with your driver version.
+Conda (recommended for environment management).

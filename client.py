@@ -40,5 +40,5 @@ async def stream_client(prompt: str):
                     
 if __name__ == "__main__":
     prompt_text = str(input("Query: "))
-    print("\n\nResponse: ", end="")
+    print("\nResponse: ", end="")
     asyncio.run(stream_client(prompt_text))
