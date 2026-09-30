@@ -37,12 +37,20 @@ new_sentences, new_embeddings = [], []
 for i in new_ids:
     new_sentences.append(embedded_data[int(i)]["text"])
     new_embeddings.append(embedded_data[int(i)]["embedding"])    
+    
+if len(new_ids) > 0:
+    collection.add(documents=new_sentences, ids=new_ids, embeddings=new_embeddings)
 
-collection.add(documents=new_sentences, ids=new_ids, embeddings=new_embeddings)
+query_embeddings = model.encode([
+    'What is a WAF?',
+    'What is quantisation?'
+])
 
 results = collection.query(
-    query_texts=['What is a WAF?'],
-    n_results=1
+    query_embeddings=query_embeddings.tolist(),
+    n_results=5
 )
 
-print(results)
+print(results['ids'])
+print(results['documents'])
+print(results['distances'])
