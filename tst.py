@@ -9,4 +9,3 @@ print(existing)
 print(existing.keys())
 
 new_ids = [i for i in ids if i not in existing['ids']]
-new_sentences = [i for i in ]
