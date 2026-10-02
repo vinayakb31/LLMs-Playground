@@ -20,22 +20,24 @@ def chunker(text: str, chunk_size: int, overlap: int) -> list:
         else:
             if current_chunk:
                 chunks.append(' '.join(current_chunk))
-                
-            current_chunk = [sentence]
-            current_length = sentence_length
-                    
-        print(current_chunk)
-                    
+            
+            if overlap > 0: 
+                current_chunk = current_chunk[-overlap:]+[sentence]
+            else:
+                current_chunk = [sentence]
+            
+            current_length = sum(len(i) for i in current_chunk) + len(current_chunk) - 1
+                                        
     if current_chunk:
         chunks.append(' '.join(current_chunk))
         
     return chunks
 
 print(chunker(text =
-    "This is a short sentence. "
-    "This is an extremely long sentence that deliberately contains "
-    "far more characters than our chosen chunk size so that we can "
-    "test whether the chunker keeps the entire sentence intact. "
-    "This is another short sentence.",
-    chunk_size = 50, overlap=1
+    '''Python is a programming language.
+    It is popular for AI.
+    It is also widely used in Data Science.
+    Python has a large ecosystem.
+    Many libraries are available.''',
+    chunk_size = 70, overlap=0
 ))
