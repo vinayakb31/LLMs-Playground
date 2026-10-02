@@ -5,6 +5,7 @@ def chunker(text: str, chunk_size: int, overlap: int) -> list:
     chunks = list()
     current_chunk = []
     current_length = 0
+    idx = 0
 
     for sentence in sentences:
         sentence_length = len(sentence)
@@ -19,7 +20,11 @@ def chunker(text: str, chunk_size: int, overlap: int) -> list:
             
         else:
             if current_chunk:
-                chunks.append(' '.join(current_chunk))
+                chunks.append({
+                    "chunk_id" : idx,
+                    "text" : ' '.join(current_chunk)
+                    })
+                idx += 1
             
             if overlap > 0: 
                 current_chunk = current_chunk[-overlap:]+[sentence]
@@ -29,15 +34,21 @@ def chunker(text: str, chunk_size: int, overlap: int) -> list:
             current_length = sum(len(i) for i in current_chunk) + len(current_chunk) - 1
                                         
     if current_chunk:
-        chunks.append(' '.join(current_chunk))
-        
+        chunks.append({
+                    "chunk_id" : idx,
+                    "text" : ' '.join(current_chunk)
+                    })     
+           
     return chunks
 
-print(chunker(text =
+chunks = chunker(text =
     '''Python is a programming language.
     It is popular for AI.
     It is also widely used in Data Science.
     Python has a large ecosystem.
     Many libraries are available.''',
-    chunk_size = 70, overlap=0
-))
+    chunk_size = 40, overlap=0
+)
+
+for i in chunks:
+    print(i)
