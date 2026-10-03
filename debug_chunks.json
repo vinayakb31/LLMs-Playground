@@ -1,0 +1,107 @@
+[
+    {
+        "chunk_id": "self_healing_waf.txt0",
+        "source": "self_healing_waf.txt",
+        "text": "An industrial-grade, closed-loop security system that detects web attacks with 97.9% accuracy and automatically \"heals\" its own knowledge gaps through validated feedback loops and adversarial data augmentation."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt1",
+        "source": "self_healing_waf.txt",
+        "text": "Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt2",
+        "source": "self_healing_waf.txt",
+        "text": "It features an inference engine capable of classifying HTTP traffic in <1.6ms, a recursive normalization layer to defeat evasion, and an automated pipeline that learns from modern API and behavioral datasets."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt3",
+        "source": "self_healing_waf.txt",
+        "text": "The \"v2 Elite\" Brain Unlike traditional WAFs, this system is trained on a tri-source dataset: CSE-CIC-IDS2018 (65%): Teaches behavioral network flow patterns."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt4",
+        "source": "self_healing_waf.txt",
+        "text": "OWASP Juice Shop (35%): Teaches modern REST API and NoSQL attacks."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt5",
+        "source": "self_healing_waf.txt",
+        "text": "CSIC Augmented (Baseline): Provides a foundational HTTP attack vocabulary."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt6",
+        "source": "self_healing_waf.txt",
+        "text": "Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt7",
+        "source": "self_healing_waf.txt",
+        "text": "Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt8",
+        "source": "self_healing_waf.txt",
+        "text": "Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt9",
+        "source": "self_healing_waf.txt",
+        "text": "Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt10",
+        "source": "self_healing_waf.txt",
+        "text": "Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt11",
+        "source": "self_healing_waf.txt",
+        "text": "Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt12",
+        "source": "self_healing_waf.txt",
+        "text": "waf_api.py: FastAPI inference server with hot-reloading."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt13",
+        "source": "self_healing_waf.txt",
+        "text": "risk_engine.py: Hybrid logic with recursive unquoting."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt14",
+        "source": "self_healing_waf.txt",
+        "text": "models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers)."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt15",
+        "source": "self_healing_waf.txt",
+        "text": "scripts/: Automation & Intelligence."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt16",
+        "source": "self_healing_waf.txt",
+        "text": "retrain_brain.py: The self-healing training pipeline."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt17",
+        "source": "self_healing_waf.txt",
+        "text": "augment_data.py: Adversarial data mutation engine."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt18",
+        "source": "self_healing_waf.txt",
+        "text": "generate_juice_payloads.py: Modern API attack generator."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt19",
+        "source": "self_healing_waf.txt",
+        "text": "evaluate_model.py: Comprehensive benchmark suite."
+    },
+    {
+        "chunk_id": "self_healing_waf.txt20",
+        "source": "self_healing_waf.txt",
+        "text": "data/: Training sets and behavioral logs."
+    }
+]

@@ -1,7 +1,22 @@
 import re
+import emoji
+import json
+import chromadb
+from sentence_transformers import SentenceTransformer
 
-def chunker(text: str, chunk_size: int, overlap: int) -> list:
-    sentences = re.split(r"(?<=[.!?])\s+", text)
+model = SentenceTransformer("paraphrase-minilm-l6-v2")
+
+with open("Sample Data/self_healing_waf.txt", encoding="utf-8") as f1:
+    file1 = f1.read()
+    
+with open("Sample Data/turboquant.txt", encoding="utf-8") as f2:
+    file2 = f2.read()
+
+def generate_chunks(text: str, filename: str, chunk_size: int, overlap: int) -> list:
+    sentences = emoji.replace_emoji(text, replace="")
+    sentences = re.sub(r"\s*\n\s*", " ", sentences)
+    sentences = re.split(r"(?<=[.!?])\s+", sentences)    
+    
     chunks = list()
     current_chunk = []
     current_length = 0
@@ -21,7 +36,8 @@ def chunker(text: str, chunk_size: int, overlap: int) -> list:
         else:
             if current_chunk:
                 chunks.append({
-                    "chunk_id" : idx,
+                    "chunk_id" : str(filename)+str(idx),
+                    "source": filename,
                     "text" : ' '.join(current_chunk)
                     })
                 idx += 1
@@ -35,20 +51,40 @@ def chunker(text: str, chunk_size: int, overlap: int) -> list:
                                         
     if current_chunk:
         chunks.append({
-                    "chunk_id" : idx,
+                    "chunk_id" : str(filename)+str(idx),
+                    "source": filename,
                     "text" : ' '.join(current_chunk)
                     })     
            
     return chunks
 
-chunks = chunker(text =
-    '''Python is a programming language.
-    It is popular for AI.
-    It is also widely used in Data Science.
-    Python has a large ecosystem.
-    Many libraries are available.''',
-    chunk_size = 40, overlap=0
-)
+def embed_chunks(model, file) -> list:    
+    chunks = generate_chunks(text = file, filename="self_healing_waf", chunk_size = 40, overlap=0)
+    chunks_text = []
+    embedded_chunks = chunks
 
-for i in chunks:
-    print(i)
+    for i in embedded_chunks:
+        chunks_text.append(i['text'])
+        
+    embeddings = model.encode(chunks_text)
+    
+    for i in range(len(embeddings)):
+        embedded_chunks[i]['embedding'] = embeddings[i].tolist()
+    
+    return embedded_chunks
+
+def export_chunks(embedded_chunks, filename):
+    debug_chunks = []
+    
+    for chunk in embedded_chunks:
+        debug_chunks.append({
+            "chunk_id": chunk["chunk_id"],
+            "source": chunk["source"],
+            "text": chunk["text"]
+        })
+        
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(debug_chunks, f, indent=4, ensure_ascii=False)
+    
+embedded_chunks = embed_chunks(model=model, file=file1)
+export_chunks(embedded_chunks=embedded_chunks, filename="debug_chunks.json")
