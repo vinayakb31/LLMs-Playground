@@ -1,8 +1,14 @@
-import re
-import emoji
+import chromadb
 
-with open("Sample Data/self_healing_waf.txt", "r", encoding='utf-8') as f:
-    text = f.read()
+client = chromadb.PersistentClient(path="./chroma_db")
+collection = client.get_or_create_collection("my_collection")
 
-print(type(text))
-print(text)
+data = collection.get(
+    include=["documents", "metadatas"]
+)
+
+for i in data["ids"]:
+    print(i)
+    
+for i in data["metadatas"]:
+    print(i)

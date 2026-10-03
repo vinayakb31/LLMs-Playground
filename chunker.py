@@ -6,6 +6,9 @@ from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer("paraphrase-minilm-l6-v2")
 
+client = chromadb.PersistentClient(path="./chroma_db")
+collection = client.get_or_create_collection(name="my_collection")
+
 with open("Sample Data/self_healing_waf.txt", encoding="utf-8") as f1:
     file1 = f1.read()
     
@@ -36,7 +39,7 @@ def generate_chunks(text: str, filename: str, chunk_size: int, overlap: int) -> 
         else:
             if current_chunk:
                 chunks.append({
-                    "chunk_id" : str(filename)+str(idx),
+                    "chunk_id" : str(filename) + "_" + str(idx),
                     "source": filename,
                     "text" : ' '.join(current_chunk)
                     })
@@ -51,15 +54,14 @@ def generate_chunks(text: str, filename: str, chunk_size: int, overlap: int) -> 
                                         
     if current_chunk:
         chunks.append({
-                    "chunk_id" : str(filename)+str(idx),
+                    "chunk_id" : str(filename) + "_" + str(idx),
                     "source": filename,
                     "text" : ' '.join(current_chunk)
                     })     
            
     return chunks
 
-def embed_chunks(model, file) -> list:    
-    chunks = generate_chunks(text = file, filename="self_healing_waf", chunk_size = 40, overlap=0)
+def embed_chunks(model, chunks) -> list:    
     chunks_text = []
     embedded_chunks = chunks
 
@@ -72,19 +74,38 @@ def embed_chunks(model, file) -> list:
         embedded_chunks[i]['embedding'] = embeddings[i].tolist()
     
     return embedded_chunks
+    
+def generator(files: list):
+    for file in files:
+        chunks = generate_chunks(text=file["file"], filename=file["filename"], chunk_size=40, overlap=1)
+        embedded_chunks = embed_chunks(model, chunks)
+        
+        for chunk in embedded_chunks:
+            yield chunk
 
-def export_chunks(embedded_chunks, filename):
-    debug_chunks = []
+def addToChroma(embedded_chunks):
+    ids, documents, embeddings, metadatas = [], [], [], []
     
     for chunk in embedded_chunks:
-        debug_chunks.append({
-            "chunk_id": chunk["chunk_id"],
-            "source": chunk["source"],
-            "text": chunk["text"]
-        })
+        ids.append(chunk["chunk_id"])
+        documents.append(chunk["text"])
+        embeddings.append(chunk["embedding"])
+        metadatas.append({"source": chunk["source"]})
         
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(debug_chunks, f, indent=4, ensure_ascii=False)
-    
-embedded_chunks = embed_chunks(model=model, file=file1)
-export_chunks(embedded_chunks=embedded_chunks, filename="debug_chunks.json")
+    collection.add(ids=ids, embeddings=embeddings, metadatas=metadatas, documents=documents)
+        
+    return None
+
+files = [
+    {
+        "file": file1,
+        "filename": "self_healing_waf"
+    },
+    {
+        "file": file2,
+        "filename": "turboquant"
+    }
+]
+
+embedded_chunks = list(generator(files))
+addToChroma(embedded_chunks=embedded_chunks)
