@@ -1,6 +1,12 @@
 import chromadb
-import numpy as np
+import os
 from sentence_transformers import SentenceTransformer
+from dotenv import load_dotenv
+from groq import Groq
+from IPython.display import display, Markdown
+
+load_dotenv()
+groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 client = chromadb.PersistentClient(path="./chroma_db")
 collection = client.get_or_create_collection(name="my_collection")
@@ -35,14 +41,41 @@ def filtering(threshold: float, results):
 def build_context(filtered_results):
     return '\n'.join(i['document'] for i in filtered_results)
 
-queries = ["What is a WAF?"]
+def build_prompt(query: str, context: str):
+    instruction = "Here is some information retrieved from the knowledge base. Use it to answer the user's question."
+    prompt = f"Instruction:\n{instruction}\n\nContext:\n{context}\n\nQuestion:{query}"
 
-filtered_results = []
-for query in queries:
+    return prompt
+
+def generate_answer(prompt: str, client):
+    response = client.chat.completions.create(
+        model = "openai/gpt-oss-20b",
+        temperature = 0.2,
+        messages = [
+            {
+                "role": "system",
+                "content": prompt
+            }
+        ]
+    )
+    
+    return response.choices[0].message.content
+
+def rag_pipeline(query: str, client):
     results = search(query)
-    filtered_results.extend(filtering(threshold=0.8, results=results))
+    filtered_results = filtering(threshold=0.8, results=results)
+    
+    context = build_context(filtered_results=filtered_results)
+    prompt = build_prompt(query=query, context=context)
+    answer = generate_answer(prompt=prompt, client=client)
+    
+    return answer
 
-# for i in filtered_results:
-#     print(i, end='\n\n')
-        
-print(build_context(filtered_results=filtered_results))
+queries = [
+    "What is a web application firewall?",
+    "Can an RTX 3050 run 4-bit quantisation?"
+]
+
+for query in queries:
+    answer = rag_pipeline(query=query, client=groq_client)
+    print(answer, end="\n\n")
