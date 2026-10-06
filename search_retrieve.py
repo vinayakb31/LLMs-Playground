@@ -65,6 +65,9 @@ def rag_pipeline(query: str, client):
     results = search(query)
     filtered_results = filtering(threshold=0.8, results=results)
     
+    if not filtered_results:
+        return None
+    
     context = build_context(filtered_results=filtered_results)
     prompt = build_prompt(query=query, context=context)
     answer = generate_answer(prompt=prompt, client=client)
@@ -73,9 +76,15 @@ def rag_pipeline(query: str, client):
 
 queries = [
     "What is a web application firewall?",
-    "Can an RTX 3050 run 4-bit quantisation?"
+    "Can an RTX 3050 run 4-bit quantisation?",
+    "What is the capital of France?"
 ]
 
 for query in queries:
     answer = rag_pipeline(query=query, client=groq_client)
-    print(answer, end="\n\n")
+    
+    if not answer:
+        print("Lack of Context\n")
+    
+    else:
+        print(answer, end="\n\n")
