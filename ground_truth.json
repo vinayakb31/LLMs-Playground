@@ -1,0 +1,58 @@
+[
+    {
+        "query": "What is a web application firewall?",
+        "relevant_chunks": [
+            "self_healing_waf_1",
+            "self_healing_waf_2"
+        ]
+    },
+    {
+        "query": "How does a WAF compare to a traditional firewall?",
+        "relevant_chunks": []
+    },
+    {
+        "query": "Who developed the turboquant algorithm?",
+        "relevant_chunks": []
+    },
+    {
+        "query": "What is 4-bit quantisation?",
+        "relevant_chunks": [
+            "turboquant_1",
+            "turboquant_2"
+        ]
+    },
+    {
+        "query": "Can an RTX 3050 run 4-bit quantisation?",
+        "relevant_chunks": []
+    },
+    {
+        "query": "What does risk_engine.py do?",
+        "relevant_chunks": [
+            "self_healing_waf_7",
+            "self_healing_waf_8",
+            "self_healing_waf_9",
+            "self_healing_waf_13",
+            "self_healing_waf_14"
+        ]
+    },
+    {
+        "query": "What GPT does turboquant recommend?",
+        "relevant_chunks": []
+    },
+    {
+        "query": "How much faster is turboquant compared to traditional quantisation algorithms?",
+        "relevant_chunks": []
+    },
+    {
+        "query": "What is the capital of France?",
+        "relevant_chunks": []
+    },
+    {
+        "query": "What is photosynthesis?",
+        "relevant_chunks": []
+    },
+    {
+        "query": "Who is the president of France?",
+        "relevant_chunks": []
+    }
+]

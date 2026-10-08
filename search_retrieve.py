@@ -1,5 +1,6 @@
 import chromadb
 import os
+import json
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 from groq import Groq
@@ -76,15 +77,41 @@ def rag_pipeline(query: str, client):
 
 queries = [
     "What is a web application firewall?",
+    "How does a WAF compare to a traditional firewall?",
+    "Who developed the turboquant algorithm?",
+    "What is 4-bit quantisation?",
     "Can an RTX 3050 run 4-bit quantisation?",
-    "What is the capital of France?"
+    "What does risk_engine.py do?",
+    "What GPT does turboquant recommend?",
+    "How much faster is turboquant compared to traditional quantisation algorithms?",
+    "What is the capital of France?",
+    "What is photosynthesis?",
+    "Who is the president of France?"
 ]
 
+# for query in queries:
+#     answer = rag_pipeline(query=query, client=groq_client)
+    
+#     if not answer:
+#         print("Lack of Context\n")
+    
+#     else:
+#         print(answer, end="\n\n")
+
+results_json = []
+
 for query in queries:
-    answer = rag_pipeline(query=query, client=groq_client)
-    
-    if not answer:
-        print("Lack of Context\n")
-    
-    else:
-        print(answer, end="\n\n")
+    results = search(query=query, n_results=10)
+
+    results_json.append({
+        "query": query,
+        "chunk_ids": results['ids'][0],
+        "documents": results['documents'][0],
+        "distances": results['distances'][0]
+    })
+        
+corpus_check = collection.get(include=['documents', 'metadatas'])
+print(corpus_check)
+        
+with open("results_eval.json", "w") as f:
+    json.dump(results_json, f, indent=4)

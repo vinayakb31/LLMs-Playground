@@ -1,0 +1,431 @@
+[
+    {
+        "query": "What is a web application firewall?",
+        "chunk_ids": [
+            "self_healing_waf_6",
+            "self_healing_waf_11",
+            "self_healing_waf_2",
+            "self_healing_waf_5",
+            "self_healing_waf_1",
+            "self_healing_waf_10",
+            "self_healing_waf_0",
+            "self_healing_waf_12",
+            "self_healing_waf_13",
+            "self_healing_waf_4"
+        ],
+        "documents": [
+            "CSIC Augmented (Baseline): Provides a foundational HTTP attack vocabulary. Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF.",
+            "Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining. Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF.",
+            "Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI. It features an inference engine capable of classifying HTTP traffic in <1.6ms, a recursive normalization layer to defeat evasion, and an automated pipeline that learns from modern API and behavioral datasets.",
+            "OWASP Juice Shop (35%): Teaches modern REST API and NoSQL attacks. CSIC Augmented (Baseline): Provides a foundational HTTP attack vocabulary.",
+            "An industrial-grade, closed-loop security system that detects web attacks with 97.9% accuracy and automatically \"heals\" its own knowledge gaps through validated feedback loops and adversarial data augmentation. Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI.",
+            "Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments. Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining.",
+            "An industrial-grade, closed-loop security system that detects web attacks with 97.9% accuracy and automatically \"heals\" its own knowledge gaps through validated feedback loops and adversarial data augmentation.",
+            "Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF. waf_api.py: FastAPI inference server with hot-reloading.",
+            "waf_api.py: FastAPI inference server with hot-reloading. risk_engine.py: Hybrid logic with recursive unquoting.",
+            "The \"v2 Elite\" Brain Unlike traditional WAFs, this system is trained on a tri-source dataset: CSE-CIC-IDS2018 (65%): Teaches behavioral network flow patterns. OWASP Juice Shop (35%): Teaches modern REST API and NoSQL attacks."
+        ],
+        "distances": [
+            0.7144243121147156,
+            0.7665414810180664,
+            0.7670771479606628,
+            0.8005738854408264,
+            0.8042922019958496,
+            0.8331336975097656,
+            0.875912606716156,
+            0.9005436897277832,
+            0.9150545597076416,
+            0.9292294979095459
+        ]
+    },
+    {
+        "query": "How does a WAF compare to a traditional firewall?",
+        "chunk_ids": [
+            "self_healing_waf_2",
+            "self_healing_waf_1",
+            "self_healing_waf_11",
+            "self_healing_waf_6",
+            "self_healing_waf_12",
+            "self_healing_waf_4",
+            "self_healing_waf_13",
+            "self_healing_waf_10",
+            "self_healing_waf_3",
+            "self_healing_waf_5"
+        ],
+        "documents": [
+            "Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI. It features an inference engine capable of classifying HTTP traffic in <1.6ms, a recursive normalization layer to defeat evasion, and an automated pipeline that learns from modern API and behavioral datasets.",
+            "An industrial-grade, closed-loop security system that detects web attacks with 97.9% accuracy and automatically \"heals\" its own knowledge gaps through validated feedback loops and adversarial data augmentation. Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI.",
+            "Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining. Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF.",
+            "CSIC Augmented (Baseline): Provides a foundational HTTP attack vocabulary. Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF.",
+            "Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF. waf_api.py: FastAPI inference server with hot-reloading.",
+            "The \"v2 Elite\" Brain Unlike traditional WAFs, this system is trained on a tri-source dataset: CSE-CIC-IDS2018 (65%): Teaches behavioral network flow patterns. OWASP Juice Shop (35%): Teaches modern REST API and NoSQL attacks.",
+            "waf_api.py: FastAPI inference server with hot-reloading. risk_engine.py: Hybrid logic with recursive unquoting.",
+            "Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments. Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining.",
+            "It features an inference engine capable of classifying HTTP traffic in <1.6ms, a recursive normalization layer to defeat evasion, and an automated pipeline that learns from modern API and behavioral datasets. The \"v2 Elite\" Brain Unlike traditional WAFs, this system is trained on a tri-source dataset: CSE-CIC-IDS2018 (65%): Teaches behavioral network flow patterns.",
+            "OWASP Juice Shop (35%): Teaches modern REST API and NoSQL attacks. CSIC Augmented (Baseline): Provides a foundational HTTP attack vocabulary."
+        ],
+        "distances": [
+            0.5480162501335144,
+            0.6679012775421143,
+            0.7088935375213623,
+            0.7127312421798706,
+            0.7210478782653809,
+            0.7554905414581299,
+            0.7574243545532227,
+            0.7915518283843994,
+            0.794121503829956,
+            0.8248569965362549
+        ]
+    },
+    {
+        "query": "Who developed the turboquant algorithm?",
+        "chunk_ids": [
+            "turboquant_2",
+            "self_healing_waf_14",
+            "turboquant_1",
+            "self_healing_waf_1",
+            "turboquant_4",
+            "self_healing_waf_2",
+            "self_healing_waf_8",
+            "self_healing_waf_17",
+            "self_healing_waf_9",
+            "self_healing_waf_10"
+        ],
+        "documents": [
+            "This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs. Key Features Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests.",
+            "risk_engine.py: Hybrid logic with recursive unquoting. models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers).",
+            "A high-performance, local chatbot implementation designed for efficient LLM inference. This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs.",
+            "An industrial-grade, closed-loop security system that detects web attacks with 97.9% accuracy and automatically \"heals\" its own knowledge gaps through validated feedback loops and adversarial data augmentation. Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI.",
+            "Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060. Persistent History: Integrated support for chat history management.",
+            "Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI. It features an inference engine capable of classifying HTTP traffic in <1.6ms, a recursive normalization layer to defeat evasion, and an automated pipeline that learns from modern API and behavioral datasets.",
+            "Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses. Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization.",
+            "retrain_brain.py: The self-healing training pipeline. augment_data.py: Adversarial data mutation engine.",
+            "Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization. Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments.",
+            "Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments. Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining."
+        ],
+        "distances": [
+            0.8063319325447083,
+            0.8190544843673706,
+            0.8618711233139038,
+            0.8770999312400818,
+            0.8823888897895813,
+            0.8865690231323242,
+            0.8995003700256348,
+            0.9035502672195435,
+            0.9109956622123718,
+            0.921607255935669
+        ]
+    },
+    {
+        "query": "What is 4-bit quantisation?",
+        "chunk_ids": [
+            "turboquant_2",
+            "turboquant_1",
+            "turboquant_4",
+            "turboquant_3",
+            "self_healing_waf_7",
+            "self_healing_waf_2",
+            "self_healing_waf_1",
+            "self_healing_waf_6",
+            "self_healing_waf_10",
+            "self_healing_waf_8"
+        ],
+        "documents": [
+            "This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs. Key Features Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests.",
+            "A high-performance, local chatbot implementation designed for efficient LLM inference. This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs.",
+            "Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060. Persistent History: Integrated support for chat history management.",
+            "Key Features Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests. Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060.",
+            "Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF. Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses.",
+            "Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI. It features an inference engine capable of classifying HTTP traffic in <1.6ms, a recursive normalization layer to defeat evasion, and an automated pipeline that learns from modern API and behavioral datasets.",
+            "An industrial-grade, closed-loop security system that detects web attacks with 97.9% accuracy and automatically \"heals\" its own knowledge gaps through validated feedback loops and adversarial data augmentation. Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI.",
+            "CSIC Augmented (Baseline): Provides a foundational HTTP attack vocabulary. Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF.",
+            "Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments. Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining.",
+            "Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses. Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization."
+        ],
+        "distances": [
+            0.47859305143356323,
+            0.6429756879806519,
+            0.6437135338783264,
+            0.700675368309021,
+            0.7207995653152466,
+            0.7382978200912476,
+            0.7433804273605347,
+            0.7541834712028503,
+            0.7798881530761719,
+            0.7891004681587219
+        ]
+    },
+    {
+        "query": "Can an RTX 3050 run 4-bit quantisation?",
+        "chunk_ids": [
+            "turboquant_4",
+            "turboquant_3",
+            "turboquant_2",
+            "turboquant_7",
+            "turboquant_1",
+            "self_healing_waf_2",
+            "self_healing_waf_7",
+            "self_healing_waf_6",
+            "turboquant_6",
+            "self_healing_waf_10"
+        ],
+        "documents": [
+            "Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060. Persistent History: Integrated support for chat history management.",
+            "Key Features Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests. Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060.",
+            "This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs. Key Features Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests.",
+            "Prerequisites To run this repository, ensure your environment is configured with: Hardware: NVIDIA GPU (e.g., RTX 4060 recommended). Software: * Python 3.10+ CUDA Toolkit compatible with your driver version.",
+            "A high-performance, local chatbot implementation designed for efficient LLM inference. This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs.",
+            "Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI. It features an inference engine capable of classifying HTTP traffic in <1.6ms, a recursive normalization layer to defeat evasion, and an automated pipeline that learns from modern API and behavioral datasets.",
+            "Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF. Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses.",
+            "CSIC Augmented (Baseline): Provides a foundational HTTP attack vocabulary. Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF.",
+            "Minimalist Design: Lightweight codebase focused on core functionality and performance. Prerequisites To run this repository, ensure your environment is configured with: Hardware: NVIDIA GPU (e.g., RTX 4060 recommended).",
+            "Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments. Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining."
+        ],
+        "distances": [
+            0.511899471282959,
+            0.581447958946228,
+            0.6590021848678589,
+            0.7336846590042114,
+            0.748164176940918,
+            0.7899620532989502,
+            0.8083356022834778,
+            0.8202800750732422,
+            0.8211404085159302,
+            0.8317624926567078
+        ]
+    },
+    {
+        "query": "What does risk_engine.py do?",
+        "chunk_ids": [
+            "self_healing_waf_14",
+            "self_healing_waf_8",
+            "self_healing_waf_13",
+            "self_healing_waf_7",
+            "self_healing_waf_20",
+            "self_healing_waf_19",
+            "self_healing_waf_18",
+            "self_healing_waf_9",
+            "self_healing_waf_17",
+            "self_healing_waf_16"
+        ],
+        "documents": [
+            "risk_engine.py: Hybrid logic with recursive unquoting. models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers).",
+            "Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses. Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization.",
+            "waf_api.py: FastAPI inference server with hot-reloading. risk_engine.py: Hybrid logic with recursive unquoting.",
+            "Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF. Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses.",
+            "evaluate_model.py: Comprehensive benchmark suite. data/: Training sets and behavioral logs.",
+            "generate_juice_payloads.py: Modern API attack generator. evaluate_model.py: Comprehensive benchmark suite.",
+            "augment_data.py: Adversarial data mutation engine. generate_juice_payloads.py: Modern API attack generator.",
+            "Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization. Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments.",
+            "retrain_brain.py: The self-healing training pipeline. augment_data.py: Adversarial data mutation engine.",
+            "scripts/: Automation & Intelligence. retrain_brain.py: The self-healing training pipeline."
+        ],
+        "distances": [
+            0.4385460615158081,
+            0.5218948125839233,
+            0.5729156732559204,
+            0.5755431056022644,
+            0.594040036201477,
+            0.6298987865447998,
+            0.6385475397109985,
+            0.6482359170913696,
+            0.7126862406730652,
+            0.7980579733848572
+        ]
+    },
+    {
+        "query": "What GPT does turboquant recommend?",
+        "chunk_ids": [
+            "turboquant_4",
+            "turboquant_6",
+            "turboquant_3",
+            "self_healing_waf_7",
+            "turboquant_7",
+            "self_healing_waf_10",
+            "self_healing_waf_8",
+            "self_healing_waf_18",
+            "self_healing_waf_14",
+            "self_healing_waf_20"
+        ],
+        "documents": [
+            "Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060. Persistent History: Integrated support for chat history management.",
+            "Minimalist Design: Lightweight codebase focused on core functionality and performance. Prerequisites To run this repository, ensure your environment is configured with: Hardware: NVIDIA GPU (e.g., RTX 4060 recommended).",
+            "Key Features Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests. Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060.",
+            "Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF. Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses.",
+            "Prerequisites To run this repository, ensure your environment is configured with: Hardware: NVIDIA GPU (e.g., RTX 4060 recommended). Software: * Python 3.10+ CUDA Toolkit compatible with your driver version.",
+            "Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments. Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining.",
+            "Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses. Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization.",
+            "augment_data.py: Adversarial data mutation engine. generate_juice_payloads.py: Modern API attack generator.",
+            "risk_engine.py: Hybrid logic with recursive unquoting. models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers).",
+            "evaluate_model.py: Comprehensive benchmark suite. data/: Training sets and behavioral logs."
+        ],
+        "distances": [
+            0.7830531597137451,
+            0.7923159599304199,
+            0.8237938284873962,
+            0.8306694626808167,
+            0.8565367460250854,
+            0.8633513450622559,
+            0.8853333592414856,
+            0.9022899866104126,
+            0.903458833694458,
+            0.9080593585968018
+        ]
+    },
+    {
+        "query": "How much faster is turboquant compared to traditional quantisation algorithms?",
+        "chunk_ids": [
+            "turboquant_2",
+            "turboquant_4",
+            "self_healing_waf_7",
+            "self_healing_waf_2",
+            "turboquant_1",
+            "self_healing_waf_14",
+            "self_healing_waf_8",
+            "self_healing_waf_1",
+            "self_healing_waf_9",
+            "turboquant_3"
+        ],
+        "documents": [
+            "This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs. Key Features Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests.",
+            "Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060. Persistent History: Integrated support for chat history management.",
+            "Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF. Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses.",
+            "Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI. It features an inference engine capable of classifying HTTP traffic in <1.6ms, a recursive normalization layer to defeat evasion, and an automated pipeline that learns from modern API and behavioral datasets.",
+            "A high-performance, local chatbot implementation designed for efficient LLM inference. This repository leverages 4-bit quantization techniques to run advanced models locally, providing a private and responsive AI experience without relying on external cloud APIs.",
+            "risk_engine.py: Hybrid logic with recursive unquoting. models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers).",
+            "Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses. Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization.",
+            "An industrial-grade, closed-loop security system that detects web attacks with 97.9% accuracy and automatically \"heals\" its own knowledge gaps through validated feedback loops and adversarial data augmentation. Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI.",
+            "Hybrid Risk Engine: Combines ML confidence scores with deterministic signature matching and recursive normalization. Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments.",
+            "Key Features Local Inference: Fully offline operation, ensuring data privacy and no latency from network requests. Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060."
+        ],
+        "distances": [
+            0.6293718814849854,
+            0.6435675621032715,
+            0.6717817783355713,
+            0.681023359298706,
+            0.6826016306877136,
+            0.7004336714744568,
+            0.7077938318252563,
+            0.7179572582244873,
+            0.7206035256385803,
+            0.7263638973236084
+        ]
+    },
+    {
+        "query": "What is the capital of France?",
+        "chunk_ids": [
+            "self_healing_waf_12",
+            "turboquant_6",
+            "self_healing_waf_14",
+            "self_healing_waf_20",
+            "self_healing_waf_7",
+            "turboquant_5",
+            "self_healing_waf_15",
+            "self_healing_waf_13",
+            "turboquant_4",
+            "self_healing_waf_1"
+        ],
+        "documents": [
+            "Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF. waf_api.py: FastAPI inference server with hot-reloading.",
+            "Minimalist Design: Lightweight codebase focused on core functionality and performance. Prerequisites To run this repository, ensure your environment is configured with: Hardware: NVIDIA GPU (e.g., RTX 4060 recommended).",
+            "risk_engine.py: Hybrid logic with recursive unquoting. models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers).",
+            "evaluate_model.py: Comprehensive benchmark suite. data/: Training sets and behavioral logs.",
+            "Key Features 97.9% Accuracy: Hardened against SQLi, XSS, Path Traversal, Log4j, and SSRF. Adversarial Resilience: Built-in mutation engine (augment_data.py) generates 40,000+ variants of attacks (Double Encoding, Comment Injection) to prevent bypasses.",
+            "Persistent History: Integrated support for chat history management. Minimalist Design: Lightweight codebase focused on core functionality and performance.",
+            "models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers). scripts/: Automation & Intelligence.",
+            "waf_api.py: FastAPI inference server with hot-reloading. risk_engine.py: Hybrid logic with recursive unquoting.",
+            "Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060. Persistent History: Integrated support for chat history management.",
+            "An industrial-grade, closed-loop security system that detects web attacks with 97.9% accuracy and automatically \"heals\" its own knowledge gaps through validated feedback loops and adversarial data augmentation. Overview This project is a high-performance Hybrid WAF that bridges the gap between traditional signature-based security and modern AI."
+        ],
+        "distances": [
+            1.1798115968704224,
+            1.1886248588562012,
+            1.2144395112991333,
+            1.232772707939148,
+            1.2484610080718994,
+            1.25226628780365,
+            1.2533104419708252,
+            1.255084753036499,
+            1.2596395015716553,
+            1.2711814641952515
+        ]
+    },
+    {
+        "query": "What is photosynthesis?",
+        "chunk_ids": [
+            "turboquant_6",
+            "self_healing_waf_12",
+            "self_healing_waf_16",
+            "self_healing_waf_13",
+            "self_healing_waf_11",
+            "self_healing_waf_10",
+            "self_healing_waf_14",
+            "self_healing_waf_18",
+            "turboquant_4",
+            "self_healing_waf_17"
+        ],
+        "documents": [
+            "Minimalist Design: Lightweight codebase focused on core functionality and performance. Prerequisites To run this repository, ensure your environment is configured with: Hardware: NVIDIA GPU (e.g., RTX 4060 recommended).",
+            "Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF. waf_api.py: FastAPI inference server with hot-reloading.",
+            "scripts/: Automation & Intelligence. retrain_brain.py: The self-healing training pipeline.",
+            "waf_api.py: FastAPI inference server with hot-reloading. risk_engine.py: Hybrid logic with recursive unquoting.",
+            "Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining. Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF.",
+            "Sub-2ms Latency: Optimized using ONNX Runtime for high-throughput production environments. Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining.",
+            "risk_engine.py: Hybrid logic with recursive unquoting. models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers).",
+            "augment_data.py: Adversarial data mutation engine. generate_juice_payloads.py: Modern API attack generator.",
+            "Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060. Persistent History: Integrated support for chat history management.",
+            "retrain_brain.py: The self-healing training pipeline. augment_data.py: Adversarial data mutation engine."
+        ],
+        "distances": [
+            0.9336907863616943,
+            0.9398068785667419,
+            0.9912314414978027,
+            0.9954586625099182,
+            1.0022408962249756,
+            1.002319097518921,
+            1.0160112380981445,
+            1.0195579528808594,
+            1.046439290046692,
+            1.047333002090454
+        ]
+    },
+    {
+        "query": "Who is the president of France?",
+        "chunk_ids": [
+            "turboquant_4",
+            "self_healing_waf_14",
+            "self_healing_waf_20",
+            "self_healing_waf_12",
+            "self_healing_waf_13",
+            "self_healing_waf_11",
+            "turboquant_6",
+            "self_healing_waf_15",
+            "self_healing_waf_18",
+            "turboquant_7"
+        ],
+        "documents": [
+            "Optimized Performance: Built specifically for NVIDIA hardware, utilizing efficient quantization for smooth execution on consumer-grade GPUs like the RTX 4060. Persistent History: Integrated support for chat history management.",
+            "risk_engine.py: Hybrid logic with recursive unquoting. models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers).",
+            "evaluate_model.py: Comprehensive benchmark suite. data/: Training sets and behavioral logs.",
+            "Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF. waf_api.py: FastAPI inference server with hot-reloading.",
+            "waf_api.py: FastAPI inference server with hot-reloading. risk_engine.py: Hybrid logic with recursive unquoting.",
+            "Self-Healing Loop: Automatically bridges quarantined logs, allows for human verification, and triggers a \"Promotion Gate\" protected retraining. Project Structure The project follows a professional, modular architecture: core/: The heart of the WAF.",
+            "Minimalist Design: Lightweight codebase focused on core functionality and performance. Prerequisites To run this repository, ensure your environment is configured with: Hardware: NVIDIA GPU (e.g., RTX 4060 recommended).",
+            "models/: Centralized ML artifacts (ONNX models, Scalers, Vectorizers). scripts/: Automation & Intelligence.",
+            "augment_data.py: Adversarial data mutation engine. generate_juice_payloads.py: Modern API attack generator.",
+            "Prerequisites To run this repository, ensure your environment is configured with: Hardware: NVIDIA GPU (e.g., RTX 4060 recommended). Software: * Python 3.10+ CUDA Toolkit compatible with your driver version."
+        ],
+        "distances": [
+            1.2567031383514404,
+            1.2837555408477783,
+            1.283926010131836,
+            1.2843129634857178,
+            1.2852647304534912,
+            1.2862623929977417,
+            1.292426586151123,
+            1.311835765838623,
+            1.3157978057861328,
+            1.3158000707626343
+        ]
+    }
+]
