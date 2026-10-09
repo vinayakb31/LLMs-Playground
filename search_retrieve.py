@@ -75,6 +75,27 @@ def rag_pipeline(query: str, client):
     
     return answer
 
+def recall_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> float | None:
+    if not relevant_chunks:
+        return None
+    
+    recall_value = 0
+    
+    for chunk in relevant_chunks:
+        if chunk in retrieved_chunks[:k]:
+            recall_value += 1
+            
+    return round(recall_value/len(relevant_chunks), 2)
+
+def precision_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> float | None:
+    precision_value = 0
+    
+    for chunk in retrieved_chunks[:k]:
+        if chunk in relevant_chunks:
+            precision_value += 1
+        
+    return round(precision_value/k, 2)
+
 queries = [
     "What is a web application firewall?",
     "How does a WAF compare to a traditional firewall?",
@@ -88,30 +109,18 @@ queries = [
     "What is photosynthesis?",
     "Who is the president of France?"
 ]
-
-# for query in queries:
-#     answer = rag_pipeline(query=query, client=groq_client)
-    
-#     if not answer:
-#         print("Lack of Context\n")
-    
-#     else:
-#         print(answer, end="\n\n")
-
-results_json = []
-
-for query in queries:
-    results = search(query=query, n_results=10)
-
-    results_json.append({
-        "query": query,
-        "chunk_ids": results['ids'][0],
-        "documents": results['documents'][0],
-        "distances": results['distances'][0]
-    })
         
-corpus_check = collection.get(include=['documents', 'metadatas'])
-print(corpus_check)
-        
-with open("results_eval.json", "w") as f:
-    json.dump(results_json, f, indent=4)
+results = search(query=queries[0], n_results=10)
+rel_chunks = ["self_healing_waf_1", "self_healing_waf_2"]
+
+k_values = [1, 3, 5, 10]
+for k in k_values:
+    recall_value = recall_at_k(retrieved_chunks=results['ids'][0],
+                               relevant_chunks=rel_chunks,
+                               k=k)
+    
+    precision_value = precision_at_k(retrieved_chunks=results['ids'][0],
+                               relevant_chunks=rel_chunks,
+                               k=k)
+    
+    print(f"k={k}\tRecall@k={recall_value}\tPrecision@k={precision_value}")
