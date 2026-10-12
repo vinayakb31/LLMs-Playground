@@ -88,6 +88,9 @@ def recall_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> float 
     return round(recall_value/len(relevant_chunks), 2)
 
 def precision_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> float | None:
+    if not relevant_chunks:
+        return None
+    
     precision_value = 0
     
     for chunk in retrieved_chunks[:k]:
@@ -95,6 +98,29 @@ def precision_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> flo
             precision_value += 1
         
     return round(precision_value/k, 2)
+
+def evaluation(queries: list, ground_truth: list, k_values: list):
+    eval_results = []
+    
+    for query in queries:
+        search_results = search(query=query)
+
+        for i in ground_truth:
+            if i['query'] == query:
+                rel_chunks = i['relevant_chunks']
+                break
+        for k in k_values:
+            precision_score = precision_at_k(retrieved_chunks=search_results["ids"][0], relevant_chunks=rel_chunks, k=k)
+            recall_score = recall_at_k(retrieved_chunks=search_results["ids"][0], relevant_chunks=rel_chunks, k=k)
+                    
+            eval_results.append({
+                "query": query,
+                "k_val": k,
+                "recall_score": recall_score,
+                "precision_score": precision_score
+            })
+        
+    return eval_results
 
 queries = [
     "What is a web application firewall?",
@@ -110,17 +136,9 @@ queries = [
     "Who is the president of France?"
 ]
         
-results = search(query=queries[0], n_results=10)
-rel_chunks = ["self_healing_waf_1", "self_healing_waf_2"]
+with open("ground_truth.json", "r") as f:
+    ground_truth = json.load(f)
 
 k_values = [1, 3, 5, 10]
-for k in k_values:
-    recall_value = recall_at_k(retrieved_chunks=results['ids'][0],
-                               relevant_chunks=rel_chunks,
-                               k=k)
-    
-    precision_value = precision_at_k(retrieved_chunks=results['ids'][0],
-                               relevant_chunks=rel_chunks,
-                               k=k)
-    
-    print(f"k={k}\tRecall@k={recall_value}\tPrecision@k={precision_value}")
+eval_results = evaluation(queries=queries, ground_truth=ground_truth, k_values=k_values)
+print(eval_results)
