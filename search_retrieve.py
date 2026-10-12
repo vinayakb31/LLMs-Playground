@@ -85,7 +85,7 @@ def recall_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> float 
         if chunk in retrieved_chunks[:k]:
             recall_value += 1
             
-    return round(recall_value/len(relevant_chunks), 2)
+    return recall_value/len(relevant_chunks)
 
 def precision_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> float | None:
     if not relevant_chunks:
@@ -96,29 +96,45 @@ def precision_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> flo
     for chunk in retrieved_chunks[:k]:
         if chunk in relevant_chunks:
             precision_value += 1
-        
-    return round(precision_value/k, 2)
+
+    if not retrieved_chunks[:k]:
+        return None
+
+    return precision_value / len(retrieved_chunks[:k])
 
 def evaluation(queries: list, ground_truth: list, k_values: list):
     eval_results = []
     
     for query in queries:
-        search_results = search(query=query)
+        search_results = search(query=query, n_results=max(k_values))
+        retrieved_chunks = search_results['ids'][0]
 
         for i in ground_truth:
+            rel_chunks = []
+            
             if i['query'] == query:
                 rel_chunks = i['relevant_chunks']
                 break
+            
+        if not rel_chunks:
+            continue
+            
+        query_result = {
+            "query": query,
+            "recall": {},
+            "precision": {}
+        }
+
         for k in k_values:
-            precision_score = precision_at_k(retrieved_chunks=search_results["ids"][0], relevant_chunks=rel_chunks, k=k)
-            recall_score = recall_at_k(retrieved_chunks=search_results["ids"][0], relevant_chunks=rel_chunks, k=k)
-                    
-            eval_results.append({
-                "query": query,
-                "k_val": k,
-                "recall_score": recall_score,
-                "precision_score": precision_score
-            })
+            query_result["recall"][k] = recall_at_k(
+                retrieved_chunks, rel_chunks, k
+            )
+
+            query_result["precision"][k] = precision_at_k(
+                retrieved_chunks, rel_chunks, k
+            )
+
+        eval_results.append(query_result)
         
     return eval_results
 
@@ -141,4 +157,20 @@ with open("ground_truth.json", "r") as f:
 
 k_values = [1, 3, 5, 10]
 eval_results = evaluation(queries=queries, ground_truth=ground_truth, k_values=k_values)
-print(eval_results)
+
+avg_recall, avg_precision = dict(), dict()
+for k in k_values:
+    avg_recall[k], avg_precision[k] = [], []
+
+for result in eval_results:
+    for k in k_values:
+        avg_recall[k].append(result['recall'][k])
+        avg_precision[k].append(result['precision'][k])
+
+n = len(eval_results)
+for k in k_values:
+    avg_recall[k] = round(sum(avg_recall[k])/n, 2)
+    avg_precision[k] = round(sum(avg_precision[k])/n, 2)
+    
+# print(f"Results:\n{eval_results}")
+print(f"\n\nAverage Recall: {avg_recall}\nAverage Precision: {avg_precision}")
