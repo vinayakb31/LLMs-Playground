@@ -138,6 +138,23 @@ def evaluation(queries: list, ground_truth: list, k_values: list):
         
     return eval_results
 
+def calculate_average(results: list, recall_score, precision_score, k_values: list):
+    avg_recall, avg_precision = dict(), dict()
+    for k in k_values:
+        avg_recall[k], avg_precision[k] = [], []
+
+    for result in eval_results:
+        for k in k_values:
+            avg_recall[k].append(result['recall'][k])
+            avg_precision[k].append(result['precision'][k])
+
+    n = len(eval_results)
+    for k in k_values:
+        avg_recall[k] = round(sum(avg_recall[k])/n, 2)
+        avg_precision[k] = round(sum(avg_precision[k])/n, 2)
+
+    return {"average_recall": avg_recall,"average_precision": avg_precision}        
+    
 queries = [
     "What is a web application firewall?",
     "How does a WAF compare to a traditional firewall?",
@@ -157,20 +174,3 @@ with open("ground_truth.json", "r") as f:
 
 k_values = [1, 3, 5, 10]
 eval_results = evaluation(queries=queries, ground_truth=ground_truth, k_values=k_values)
-
-avg_recall, avg_precision = dict(), dict()
-for k in k_values:
-    avg_recall[k], avg_precision[k] = [], []
-
-for result in eval_results:
-    for k in k_values:
-        avg_recall[k].append(result['recall'][k])
-        avg_precision[k].append(result['precision'][k])
-
-n = len(eval_results)
-for k in k_values:
-    avg_recall[k] = round(sum(avg_recall[k])/n, 2)
-    avg_precision[k] = round(sum(avg_precision[k])/n, 2)
-    
-# print(f"Results:\n{eval_results}")
-print(f"\n\nAverage Recall: {avg_recall}\nAverage Precision: {avg_precision}")
