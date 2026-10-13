@@ -1,58 +1,141 @@
+
 [
-    {
-        "query": "What is a web application firewall?",
-        "relevant_chunks": [
-            "self_healing_waf_1",
-            "self_healing_waf_2"
-        ]
-    },
-    {
-        "query": "How does a WAF compare to a traditional firewall?",
-        "relevant_chunks": []
-    },
-    {
-        "query": "Who developed the turboquant algorithm?",
-        "relevant_chunks": []
-    },
-    {
-        "query": "What is 4-bit quantisation?",
-        "relevant_chunks": [
-            "turboquant_1",
-            "turboquant_2"
-        ]
-    },
-    {
-        "query": "Can an RTX 3050 run 4-bit quantisation?",
-        "relevant_chunks": []
-    },
-    {
-        "query": "What does risk_engine.py do?",
-        "relevant_chunks": [
-            "self_healing_waf_7",
-            "self_healing_waf_8",
-            "self_healing_waf_9",
-            "self_healing_waf_13",
-            "self_healing_waf_14"
-        ]
-    },
-    {
-        "query": "What GPT does turboquant recommend?",
-        "relevant_chunks": []
-    },
-    {
-        "query": "How much faster is turboquant compared to traditional quantisation algorithms?",
-        "relevant_chunks": []
-    },
-    {
-        "query": "What is the capital of France?",
-        "relevant_chunks": []
-    },
-    {
-        "query": "What is photosynthesis?",
-        "relevant_chunks": []
-    },
-    {
-        "query": "Who is the president of France?",
-        "relevant_chunks": []
-    }
+  {
+    "query": "What is a web application firewall?",
+    "relevant_chunks": [
+      "self_healing_waf_1",
+      "self_healing_waf_2"
+    ]
+  },
+  {
+    "query": "What accuracy does the self-healing WAF achieve?",
+    "relevant_chunks": [
+      "self_healing_waf_0",
+      "self_healing_waf_1",
+      "self_healing_waf_6"
+    ]
+  },
+  {
+    "query": "Which datasets are used to train or evaluate the WAF?",
+    "relevant_chunks": [
+      "self_healing_waf_3",
+      "self_healing_waf_4",
+      "self_healing_waf_5",
+      "self_healing_waf_6"
+    ]
+  },
+  {
+    "query": "What role does OWASP Juice Shop play in the WAF project?",
+    "relevant_chunks": [
+      "self_healing_waf_4",
+      "self_healing_waf_5"
+    ]
+  },
+  {
+    "query": "How does the WAF defend against evasion attacks?",
+    "relevant_chunks": [
+      "self_healing_waf_7",
+      "self_healing_waf_8",
+      "self_healing_waf_9"
+    ]
+  },
+  {
+    "query": "How does the Hybrid Risk Engine make decisions?",
+    "relevant_chunks": [
+      "self_healing_waf_8",
+      "self_healing_waf_9",
+      "self_healing_waf_13",
+      "self_healing_waf_14"
+    ]
+  },
+  {
+    "query": "What is the inference latency of the WAF?",
+    "relevant_chunks": [
+      "self_healing_waf_2",
+      "self_healing_waf_9",
+      "self_healing_waf_10"
+    ]
+  },
+  {
+    "query": "Which Python file implements the hybrid risk engine?",
+    "relevant_chunks": [
+      "self_healing_waf_13",
+      "self_healing_waf_14"
+    ]
+  },
+  {
+    "query": "Which scripts are used in the WAF data augmentation pipeline?",
+    "relevant_chunks": [
+      "self_healing_waf_17",
+      "self_healing_waf_18",
+      "self_healing_waf_19"
+    ]
+  },
+  {
+    "query": "How does adversarial augmentation help the WAF?",
+    "relevant_chunks": [
+      "self_healing_waf_0",
+      "self_healing_waf_7",
+      "self_healing_waf_8"
+    ]
+  },
+  {
+    "query": "What is the purpose of the TurboQuant project?",
+    "relevant_chunks": [
+      "turboquant_0",
+      "turboquant_1",
+      "turboquant_2"
+    ]
+  },
+  {
+    "query": "How does TurboQuant support private, offline inference?",
+    "relevant_chunks": [
+      "turboquant_1",
+      "turboquant_2",
+      "turboquant_3"
+    ]
+  },
+  {
+    "query": "What hardware does TurboQuant target?",
+    "relevant_chunks": [
+      "turboquant_3",
+      "turboquant_4",
+      "turboquant_6",
+      "turboquant_7"
+    ]
+  },
+  {
+    "query": "What software prerequisites are required to run TurboQuant?",
+    "relevant_chunks": [
+      "turboquant_7",
+      "turboquant_8"
+    ]
+  },
+  {
+    "query": "Does TurboQuant support persistent conversation history?",
+    "relevant_chunks": [
+      "turboquant_4",
+      "turboquant_5"
+    ]
+  },
+  {
+    "query": "Who developed the TurboQuant algorithm?",
+    "relevant_chunks": []
+  },
+  {
+    "query": "What GPT model does TurboQuant recommend?",
+    "relevant_chunks": []
+  },
+  {
+    "query": "How much faster is TurboQuant than traditional quantisation?",
+    "relevant_chunks": []
+  },
+  {
+    "query": "Can an RTX 3050 run TurboQuant reliably?",
+    "relevant_chunks": []
+  },
+  {
+    "query": "What is the capital of France?",
+    "relevant_chunks": []
+  }
 ]

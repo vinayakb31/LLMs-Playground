@@ -4,7 +4,6 @@ import json
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 from groq import Groq
-from IPython.display import display, Markdown
 
 load_dotenv()
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
@@ -13,6 +12,9 @@ client = chromadb.PersistentClient(path="./chroma_db")
 collection = client.get_or_create_collection(name="my_collection")
 
 model = SentenceTransformer("BAAI/bge-small-en-v1.5")
+
+with open("ground_truth.json", "r") as f:
+    ground_truth = json.load(f)
 
 def search(query: str, n_results=3):
     query_embeddings = model.encode(query)
@@ -115,15 +117,25 @@ def evaluation(queries: list, ground_truth: list, k_values: list):
             if i['query'] == query:
                 rel_chunks = i['relevant_chunks']
                 break
-            
+
         if not rel_chunks:
             continue
             
         query_result = {
             "query": query,
             "recall": {},
-            "precision": {}
+            "precision": {},
+            "relevant_retrieved": {},
+            "relevant_missed": []
         }
+
+        for rank, chunk in enumerate(retrieved_chunks, start=1):
+            if chunk in rel_chunks:
+                query_result["relevant_retrieved"][chunk] = rank
+                    
+        for chunk in rel_chunks:
+            if chunk not in retrieved_chunks:
+                query_result["relevant_missed"].append(chunk)
 
         for k in k_values:
             query_result["recall"][k] = recall_at_k(
@@ -138,7 +150,7 @@ def evaluation(queries: list, ground_truth: list, k_values: list):
         
     return eval_results
 
-def calculate_average(results: list, recall_score, precision_score, k_values: list):
+def calculate_average(eval_results: list, k_values: list):
     avg_recall, avg_precision = dict(), dict()
     for k in k_values:
         avg_recall[k], avg_precision[k] = [], []
@@ -155,22 +167,38 @@ def calculate_average(results: list, recall_score, precision_score, k_values: li
 
     return {"average_recall": avg_recall,"average_precision": avg_precision}        
     
+
 queries = [
+    # --- Self-Healing WAF: answerable ---
     "What is a web application firewall?",
-    "How does a WAF compare to a traditional firewall?",
-    "Who developed the turboquant algorithm?",
-    "What is 4-bit quantisation?",
-    "Can an RTX 3050 run 4-bit quantisation?",
-    "What does risk_engine.py do?",
-    "What GPT does turboquant recommend?",
-    "How much faster is turboquant compared to traditional quantisation algorithms?",
+    "What accuracy does the self-healing WAF achieve?",
+    "Which datasets are used to train or evaluate the WAF?",
+    "What role does OWASP Juice Shop play in the WAF project?",
+    "How does the WAF defend against evasion attacks?",
+    "How does the Hybrid Risk Engine make decisions?",
+    "What is the inference latency of the WAF?",
+    "Which Python file implements the hybrid risk engine?",
+    "Which scripts are used in the WAF data augmentation pipeline?",
+    "How does adversarial augmentation help the WAF?",
+
+    # --- TurboQuant: answerable ---
+    "What is the purpose of the TurboQuant project?",
+    "How does TurboQuant support private, offline inference?",
+    "What hardware does TurboQuant target?",
+    "What software prerequisites are required to run TurboQuant?",
+    "Does TurboQuant support persistent conversation history?",
+
+    # --- Questions the corpus cannot answer ---
+    "Who developed the TurboQuant algorithm?",
+    "What GPT model does TurboQuant recommend?",
+    "How much faster is TurboQuant than traditional quantisation?",
+    "Can an RTX 3050 run TurboQuant reliably?",
     "What is the capital of France?",
-    "What is photosynthesis?",
-    "Who is the president of France?"
 ]
-        
-with open("ground_truth.json", "r") as f:
-    ground_truth = json.load(f)
 
 k_values = [1, 3, 5, 10]
 eval_results = evaluation(queries=queries, ground_truth=ground_truth, k_values=k_values)
+search_results = search(query=queries[0], n_results=10)
+
+for rank, id in enumerate(search_results['ids'][0], start=1):
+    print(f"{rank}\t{id}")

@@ -17,12 +17,4 @@ queries = [
     "Who is the president of France?"
 ]
 
-for query in queries:
-    # results = search(query=query)
-    
-    for i in truth:
-        if i['query'] == query:
-            rel_chunks = i['relevant_chunks']
-            break
-
-    print(rel_chunks)
+print(truth[0]['relevant_chunks'])
