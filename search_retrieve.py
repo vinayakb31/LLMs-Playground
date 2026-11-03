@@ -8,8 +8,8 @@ from groq import Groq
 load_dotenv()
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-client = chromadb.PersistentClient(path="./chroma_db")
-collection = client.get_or_create_collection(name="my_collection")
+chroma_client = chromadb.PersistentClient(path="./chroma_db")
+collection = chroma_client.get_or_create_collection(name="my_collection")
 
 model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 
@@ -94,7 +94,7 @@ def generate_answer(prompt: str, client=groq_client):
     
     return response.choices[0].message.content
 
-def rag_pipeline(query: str, client):
+def rag_pipeline(query: str, client=groq_client):
     results = search(query)
     filtered_results = filtering(threshold=0.8, results=results)
     
@@ -250,36 +250,27 @@ queries_to_test = [
     "Does TurboQuant save previous conversations?"
 ]
 
-test_ground_truth = {
-    "What is the purpose of the TurboQuant project?": [
-        "turboquant_0",
-        "turboquant_1",
-        "turboquant_2",
-        "turboquant_3"
-    ],
-    "Can I use TurboQuant without an internet connection?": [
-        "turboquant_0",
-        "turboquant_1",
-        "turboquant_2",
-        "turboquant_3"
-    ],
-    "Does TurboQuant save previous conversations?": [
-        "turboquant_4",
-        "turboquant_5"
-    ]
-}
+test_ground_truth = [
+    ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
+    ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
+    ["turboquant_4", "turboquant_5"]
+]
 
-for query in queries_to_test:
-    rewritten_query = rewrite_query(query=query, client=groq_client)
+for i in range(len(queries_to_test)):
+    rewritten_query = rewrite_query(query=queries_to_test[i], client=groq_client)
+    relevant_chunks = test_ground_truth[i]
     
-    retrieved_chunks_normal = search(query=query, n_results=10)['ids'][0]
-    retrieved_chunks_rewritten = search(query=rewritten_query, n_results=10)['ids'][0]
+    # results_normal = evaluate_retrieval(query=queries_to_test[i], relevant_chunks=relevant_chunks, k_values=k_values)
+    # results_modified = evaluate_retrieval(query=rewritten_query, relevant_chunks=relevant_chunks, k_values=k_values)
     
-    relevant_chunks = test_ground_truth.get(query, [])
+    results_normal = search(query=queries_to_test[i], n_results=10)
+    results_modified = search(query=rewritten_query, n_results=10)
     
-    results_normal = evaluate_retrieval(query=query, relevant_chunks=relevant_chunks, k_values=k_values)
-    results_modified = evaluate_retrieval(query=rewritten_query, relevant_chunks=relevant_chunks, k_values=k_values)
-    
-    print(results_normal)
-    print('\n\n\n')
-    print(results_modified)
+    print(f"Query: {queries_to_test[i]}")
+    print(results_normal['ids'][0])
+    print(results_normal['distances'][0])
+    print('\n\n')
+    print(f"Query (Rewritten): {rewritten_query}")
+    print(results_modified['ids'][0])
+    print(results_modified['distances'][0])
+    print('\n\n')
