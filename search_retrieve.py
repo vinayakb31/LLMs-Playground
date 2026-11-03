@@ -16,7 +16,7 @@ model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 with open("ground_truth.json", "r") as f:
     ground_truth = json.load(f)
 
-def search(query: str, n_results=3):
+def search(query: str, n_results=10):
     query_embeddings = model.encode(query)
 
     results = collection.query(
@@ -50,7 +50,37 @@ def build_prompt(query: str, context: str):
 
     return prompt
 
-def generate_answer(prompt: str, client):
+def rewrite_query(query: str, client=groq_client):
+    system_prompt = """
+    Rewrite the user's question to improve its suitability for
+    document retrieval.
+
+    Preserve the original meaning and intent.
+    Use relevant technical terminology where appropriate.
+    Do not introduce assumptions or information that is not
+    implied by the original question.
+
+    Return only the rewritten query, without explanations.
+    """
+    
+    response = client.chat.completions.create(
+        model = "openai/gpt-oss-20b",
+        temperature = 0.2,
+        messages = [
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user",
+                "content": query
+            }
+        ]
+    )
+    
+    return response.choices[0].message.content
+
+def generate_answer(prompt: str, client=groq_client):
     response = client.chat.completions.create(
         model = "openai/gpt-oss-20b",
         temperature = 0.2,
@@ -157,8 +187,10 @@ def calculate_average(eval_results: list, k_values: list):
 
     for result in eval_results:
         for k in k_values:
-            avg_recall[k].append(result['recall'][k])
-            avg_precision[k].append(result['precision'][k])
+            if result['recall'][k] is not None:
+                avg_recall[k].append(result['recall'][k])
+            if result['precision'][k] is not None:
+                avg_precision[k].append(result['precision'][k])
 
     n = len(eval_results)
     for k in k_values:
@@ -166,7 +198,22 @@ def calculate_average(eval_results: list, k_values: list):
         avg_precision[k] = round(sum(avg_precision[k])/n, 2)
 
     return {"average_recall": avg_recall,"average_precision": avg_precision}        
-    
+
+def evaluate_retrieval(query, relevant_chunks, k_values):
+    retrieved_chunks = search(query, n_results=max(k_values))['ids'][0]
+    results = {}
+
+    for k in k_values:
+        results[k] = {
+            "recall": recall_at_k(
+                retrieved_chunks, relevant_chunks, k
+            ),
+            "precision": precision_at_k(
+                retrieved_chunks, relevant_chunks, k
+            )
+        }
+
+    return results
 
 queries = [
     # --- Self-Healing WAF: answerable ---
@@ -197,8 +244,42 @@ queries = [
 ]
 
 k_values = [1, 3, 5, 10]
-eval_results = evaluation(queries=queries, ground_truth=ground_truth, k_values=k_values)
-search_results = search(query=queries[0], n_results=10)
+queries_to_test = [
+    "What is the purpose of the TurboQuant project?",
+    "Can I use TurboQuant without an internet connection?",
+    "Does TurboQuant save previous conversations?"
+]
 
-for rank, id in enumerate(search_results['ids'][0], start=1):
-    print(f"{rank}\t{id}")
+test_ground_truth = {
+    "What is the purpose of the TurboQuant project?": [
+        "turboquant_0",
+        "turboquant_1",
+        "turboquant_2",
+        "turboquant_3"
+    ],
+    "Can I use TurboQuant without an internet connection?": [
+        "turboquant_0",
+        "turboquant_1",
+        "turboquant_2",
+        "turboquant_3"
+    ],
+    "Does TurboQuant save previous conversations?": [
+        "turboquant_4",
+        "turboquant_5"
+    ]
+}
+
+for query in queries_to_test:
+    rewritten_query = rewrite_query(query=query, client=groq_client)
+    
+    retrieved_chunks_normal = search(query=query, n_results=10)['ids'][0]
+    retrieved_chunks_rewritten = search(query=rewritten_query, n_results=10)['ids'][0]
+    
+    relevant_chunks = test_ground_truth.get(query, [])
+    
+    results_normal = evaluate_retrieval(query=query, relevant_chunks=relevant_chunks, k_values=k_values)
+    results_modified = evaluate_retrieval(query=rewritten_query, relevant_chunks=relevant_chunks, k_values=k_values)
+    
+    print(results_normal)
+    print('\n\n\n')
+    print(results_modified)
