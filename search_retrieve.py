@@ -80,7 +80,7 @@ def rewrite_query(query: str, client=groq_client):
     
     return response.choices[0].message.content
 
-def multi_query_retrieval(query: str, client=groq_client):
+def multi_query_retrieval(query: str, k=60, client=groq_client):
     system_prompt = """
     You are a query generation assistant designed to improve
     document retrieval in a Retrieval-Augmented Generation (RAG) system.
@@ -130,19 +130,30 @@ def multi_query_retrieval(query: str, client=groq_client):
         "distances": []
     }
     
+    rankings = dict()
+    
     for query in response:
+        rank = 1
         search_results = search(query=query, n_results=10)
         
         for id, document, metadata, distance in zip(search_results['ids'][0], search_results['documents'][0],
                                                     search_results['metadatas'][0], search_results['distances'][0]):
-            if id not in combined_results['ids']:
-                combined_results['ids'].append(id)
-                combined_results['documents'].append(document)
-                combined_results['metadatas'].append(metadata)
-                combined_results['distances'].append(distance)
+            if id not in rankings:
+                rankings[id] = [rank]
+            else:
+                rankings[id].append(rank)
+                
+            rank += 1
+            
+    for id, ranks in rankings.items():
+        rrf_score = 0
+        
+        for i in ranks:
+            rrf_score += 1/(k+i)
+        
+        rankings[id] = round(rrf_score, 5)
     
-    print(combined_results['ids'])
-    return combined_results['ids']
+    return rankings
 
 def generate_answer(prompt: str, client=groq_client):
     response = client.chat.completions.create(
