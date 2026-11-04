@@ -80,6 +80,70 @@ def rewrite_query(query: str, client=groq_client):
     
     return response.choices[0].message.content
 
+def multi_query_retrieval(query: str, client=groq_client):
+    system_prompt = """
+    You are a query generation assistant designed to improve
+    document retrieval in a Retrieval-Augmented Generation (RAG) system.
+
+    Generate exactly three alternative search queries based on
+    the user's original question.
+
+    Instructions:
+    1. Preserve the original question's meaning and intent.
+    2. Explore three different retrieval perspectives or aspects
+    of the original question.
+    3. Use relevant technical terminology, synonyms, and alternative
+    expressions where appropriate.
+    4. Each query should target a distinct perspective rather than
+    simply rephrasing the same question.
+    5. Do not introduce assumptions, unrelated concepts, or information
+    that is not implied by the original question.
+    6. Keep each query concise and suitable for semantic search.
+
+    Return only the three queries, one per line.
+    Do not include numbering, explanations, or additional text.
+    """
+    
+    response = client.chat.completions.create(
+        model = "openai/gpt-oss-20b",
+        temperature = 0.2,
+        messages = [
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user",
+                "content": query
+            }
+        ]
+    )
+    
+    response = response.choices[0].message.content
+    response = response.split('\n')
+    response = [i.strip() for i in response]
+    
+    combined_results = {
+        "ids": [],
+        "documents": [],
+        "metadatas": [],
+        "distances": []
+    }
+    
+    for query in response:
+        search_results = search(query=query, n_results=10)
+        
+        for id, document, metadata, distance in zip(search_results['ids'][0], search_results['documents'][0],
+                                                    search_results['metadatas'][0], search_results['distances'][0]):
+            if id not in combined_results['ids']:
+                combined_results['ids'].append(id)
+                combined_results['documents'].append(document)
+                combined_results['metadatas'].append(metadata)
+                combined_results['distances'].append(distance)
+    
+    print(combined_results['ids'])
+    return combined_results['ids']
+
 def generate_answer(prompt: str, client=groq_client):
     response = client.chat.completions.create(
         model = "openai/gpt-oss-20b",
@@ -263,14 +327,23 @@ for i in range(len(queries_to_test)):
     # results_normal = evaluate_retrieval(query=queries_to_test[i], relevant_chunks=relevant_chunks, k_values=k_values)
     # results_modified = evaluate_retrieval(query=rewritten_query, relevant_chunks=relevant_chunks, k_values=k_values)
     
-    results_normal = search(query=queries_to_test[i], n_results=10)
-    results_modified = search(query=rewritten_query, n_results=10)
+    # results_normal = search(query=queries_to_test[i], n_results=10)
+    # results_modified = search(query=rewritten_query, n_results=10)
+    # results_expanded = search(query=expanded_query, n_results=10)
     
-    print(f"Query: {queries_to_test[i]}")
-    print(results_normal['ids'][0])
-    print(results_normal['distances'][0])
-    print('\n\n')
-    print(f"Query (Rewritten): {rewritten_query}")
-    print(results_modified['ids'][0])
-    print(results_modified['distances'][0])
-    print('\n\n')
+    # print(f"Query: {queries_to_test[i]}")
+    # print(results_normal['ids'][0])
+    # print(results_normal['distances'][0])
+    # print('\n\n')
+    
+    # print(f"Query (Rewritten): {rewritten_query}")
+    # print(results_modified['ids'][0])
+    # print(results_modified['distances'][0])
+    # print('\n\n')
+    
+    # print(f"Query (Expanded): {expanded_query}")
+    # print(results_expanded['ids'][0])
+    # print(results_expanded['distances'][0])
+    # print('\n\n')
+    
+multi_query_retrieval(query=queries_to_test[0])
