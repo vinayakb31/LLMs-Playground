@@ -80,61 +80,13 @@ def rewrite_query(query: str, client=groq_client):
     
     return response.choices[0].message.content
 
-def multi_query_retrieval(query: str, k=60, client=groq_client):
-    system_prompt = """
-    You are a query generation assistant designed to improve
-    document retrieval in a Retrieval-Augmented Generation (RAG) system.
-
-    Generate exactly three alternative search queries based on
-    the user's original question.
-
-    Instructions:
-    1. Preserve the original question's meaning and intent.
-    2. Explore three different retrieval perspectives or aspects
-    of the original question.
-    3. Use relevant technical terminology, synonyms, and alternative
-    expressions where appropriate.
-    4. Each query should target a distinct perspective rather than
-    simply rephrasing the same question.
-    5. Do not introduce assumptions, unrelated concepts, or information
-    that is not implied by the original question.
-    6. Keep each query concise and suitable for semantic search.
-
-    Return only the three queries, one per line.
-    Do not include numbering, explanations, or additional text.
-    """
-    
-    response = client.chat.completions.create(
-        model = "openai/gpt-oss-20b",
-        temperature = 0.2,
-        messages = [
-            {
-                "role": "system",
-                "content": system_prompt
-            },
-            {
-                "role": "user",
-                "content": query
-            }
-        ]
-    )
-    
-    response = response.choices[0].message.content
-    response = response.split('\n')
-    response = [i.strip() for i in response]
-    
-    combined_results = {
-        "ids": [],
-        "documents": [],
-        "metadatas": [],
-        "distances": []
-    }
-    
+def multi_query_retrieval(query: str, generated_queries: dict, k=60, client=groq_client):
     rankings = dict()
+    rrf_scores = []
     
-    for query in response:
+    for i in generated_queries[query]:
         rank = 1
-        search_results = search(query=query, n_results=10)
+        search_results = search(query=i, n_results=10)
         
         for id, document, metadata, distance in zip(search_results['ids'][0], search_results['documents'][0],
                                                     search_results['metadatas'][0], search_results['distances'][0]):
@@ -151,9 +103,10 @@ def multi_query_retrieval(query: str, k=60, client=groq_client):
         for i in ranks:
             rrf_score += 1/(k+i)
         
-        rankings[id] = round(rrf_score, 5)
+        rrf_scores.append([id, round(rrf_score, 5)])
     
-    return rankings
+    rrf_scores = sorted(rrf_scores, key=lambda x: x[1], reverse=True)
+    return rrf_scores
 
 def generate_answer(prompt: str, client=groq_client):
     response = client.chat.completions.create(
@@ -274,8 +227,18 @@ def calculate_average(eval_results: list, k_values: list):
 
     return {"average_recall": avg_recall,"average_precision": avg_precision}        
 
-def evaluate_retrieval(query, relevant_chunks, k_values):
-    retrieved_chunks = search(query, n_results=max(k_values))['ids'][0]
+def evaluate_retrieval(query, relevant_chunks, generated_queries: dict, technique: str, k_values: list):
+    if technique == "single":
+        retrieved_chunks = search(query, n_results=max(k_values))['ids'][0]
+    
+    elif technique == "multi":
+        retrieved_chunks = multi_query_retrieval(query=query, generated_queries=generated_queries)
+        for i in range(len(retrieved_chunks)):
+            retrieved_chunks[i] = retrieved_chunks[i][0]
+        
+    else:
+        return "Invalid Technique"
+    
     results = {}
 
     for k in k_values:
@@ -325,36 +288,54 @@ queries_to_test = [
     "Does TurboQuant save previous conversations?"
 ]
 
-test_ground_truth = [
-    ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
-    ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
-    ["turboquant_4", "turboquant_5"]
-]
+generated_test_queries = {
+    "What is the purpose of the TurboQuant project?": [
+        "TurboQuant project objectives and goals",
+        "Intended purpose and functionality of TurboQuant",
+        "Benefits and impact of the TurboQuant initiative"
+    ],
 
-for i in range(len(queries_to_test)):
-    rewritten_query = rewrite_query(query=queries_to_test[i], client=groq_client)
-    relevant_chunks = test_ground_truth[i]
+    "Can I use TurboQuant without an internet connection?": [
+        "TurboQuant offline operation",
+        "Does TurboQuant require an internet connection?",
+        "TurboQuant features available without internet"
+    ],
+
+    "Does TurboQuant save previous conversations?": [
+        "TurboQuant conversation history retention policy",
+        "TurboQuant logs previous chat sessions",
+        "TurboQuant privacy policy on storing user conversations"
+    ]
+}
+
+test_ground_truth = {
+    "What is the purpose of the TurboQuant project?": ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
+    "Can I use TurboQuant without an internet connection?": ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
+    "Does TurboQuant save previous conversations?": ["turboquant_4", "turboquant_5"]
+}
+
+
+for query in queries_to_test:
+    results_normal = evaluate_retrieval(query=query,
+                                        relevant_chunks=test_ground_truth[query],
+                                        generated_queries=generated_test_queries,
+                                        technique="single",
+                                        k_values=k_values)
     
-    # results_normal = evaluate_retrieval(query=queries_to_test[i], relevant_chunks=relevant_chunks, k_values=k_values)
-    # results_modified = evaluate_retrieval(query=rewritten_query, relevant_chunks=relevant_chunks, k_values=k_values)
+    rewritten_query = rewrite_query(query=query)
+    results_rewritten = evaluate_retrieval(query=rewritten_query,
+                                           relevant_chunks=test_ground_truth[query],
+                                           generated_queries=generated_test_queries,
+                                           technique="single",
+                                           k_values=k_values)
     
-    # results_normal = search(query=queries_to_test[i], n_results=10)
-    # results_modified = search(query=rewritten_query, n_results=10)
-    # results_expanded = search(query=expanded_query, n_results=10)
+    results_multi = evaluate_retrieval(query=query,
+                                       relevant_chunks=test_ground_truth[query],
+                                       generated_queries=generated_test_queries,
+                                       technique="multi",
+                                       k_values=k_values)
     
-    # print(f"Query: {queries_to_test[i]}")
-    # print(results_normal['ids'][0])
-    # print(results_normal['distances'][0])
-    # print('\n\n')
-    
-    # print(f"Query (Rewritten): {rewritten_query}")
-    # print(results_modified['ids'][0])
-    # print(results_modified['distances'][0])
-    # print('\n\n')
-    
-    # print(f"Query (Expanded): {expanded_query}")
-    # print(results_expanded['ids'][0])
-    # print(results_expanded['distances'][0])
-    # print('\n\n')
-    
-multi_query_retrieval(query=queries_to_test[0])
+    print(f"Query: {query}")
+    print(f"Normal Results:\n{results_normal}\n")
+    print(f"Results (Rewritten Query):\n{results_rewritten}\n")
+    print(f"Results (Multi Query):\n{results_multi}\n\n\n")
