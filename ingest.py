@@ -2,8 +2,13 @@ import re
 import emoji
 import json
 import chromadb
+import os
 from sentence_transformers import SentenceTransformer
+from groq import Groq
+from dotenv import load_dotenv
 
+load_dotenv()
+groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 
 client = chromadb.PersistentClient(path="./chroma_db")
@@ -14,11 +19,38 @@ with open("Sample Data/self_healing_waf.txt", encoding="utf-8") as f1:
     
 with open("Sample Data/turboquant.txt", encoding="utf-8") as f2:
     file2 = f2.read()
+    
+def load_prompt(prompt_name: str) -> str:
+    prompt_path = os.path.join("prompts", prompt_name)
+    
+    with open(prompt_path, 'r') as f:
+        return f.read()
+
+def analyse_document(file, client=groq_client):
+    system_prompt = load_prompt(prompt_name='document_analysis.txt')
+    
+    response = client.chat.completions.create(
+        model="openai/gpt-oss-120b",
+        temperature=0.2,
+        max_completion_tokens=8192,
+        messages=[
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user",
+                "content": file
+            }
+        ]
+    )
+    
+    return response.choices[0].message.content
 
 def generate_chunks(text: str, filename: str, chunk_size: int, overlap: int) -> list:
     sentences = emoji.replace_emoji(text, replace="")
     sentences = re.sub(r"\s*\n\s*", " ", sentences)
-    sentences = re.split(r"(?<=[.!?])\s+", sentences)    
+    sentences = re.split(r"(?<=[.!?])\s+", sentences)
     
     chunks = list()
     current_chunk = []
@@ -60,6 +92,35 @@ def generate_chunks(text: str, filename: str, chunk_size: int, overlap: int) -> 
                     })     
            
     return chunks
+
+def contextualise_chunks(chunks, analysed_file, client=groq_client):    
+    system_prompt = load_prompt(prompt_name='chunk_contextualise.txt')
+    
+    document_analysis_path = os.path.join("document_analysis", analysed_file)
+    with open(document_analysis_path, "r") as f:
+        document_analysis = json.load(f)
+        
+    contextualised_chunks = list()
+    
+    for i in range(5):
+        response = client.chat.completions.create(
+            model="openai/gpt-oss-120b",
+            temperature=0.2,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": f"DOCUMENT ANALYSIS:\n{document_analysis}\n\nCHUNK TO CONTEXTUALISE:\n{chunks[i]['text']}"
+                }
+            ]
+        )
+        
+        contextualised_chunks.append(response.choices[0].message.content)
+    
+    return contextualised_chunks
 
 def embed_chunks(model, chunks) -> list:    
     chunks_text = []
@@ -107,5 +168,11 @@ files = [
     }
 ]
 
-embedded_chunks = list(generator(files))
-addToChroma(embedded_chunks=embedded_chunks)
+# embedded_chunks = list(generator(files))
+# addToChroma(embedded_chunks=embedded_chunks)
+
+chunks = generate_chunks(text=file1, filename='waf', chunk_size=40, overlap=0)
+# print(chunks)
+
+chunks_contextualised = contextualise_chunks(chunks=chunks, analysed_file='self_healing_waf.json')
+print(chunks_contextualised)

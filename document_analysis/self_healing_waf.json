@@ -1,0 +1,438 @@
+{
+    "document_overview": {
+        "name": "Industrial-Grade Closed-Loop Hybrid WAF (v2 Elite)",
+        "purpose": "Provide a high-performance web application firewall that combines signature-based security with AI, offering rapid attack classification, adversarial resilience, and self-healing capabilities.",
+        "description": "The document describes a hybrid WAF system that achieves 97.9% detection accuracy, sub\u20112ms inference latency, and an automated feedback loop for continuous learning. It outlines the system\u2019s architecture, training data sources, key features, and project directory layout."
+    },
+    "sections": [
+        {
+            "heading": "Overview",
+            "description": "Introduces the project as a high\u2011performance Hybrid WAF that bridges traditional signature\u2011based security and modern AI, highlighting its inference speed and recursive normalization layer.",
+            "entities": [
+                "Hybrid WAF",
+                "Inference Engine",
+                "Recursive Normalization Layer"
+            ]
+        },
+        {
+            "heading": "The \"v2 Elite\" Brain",
+            "description": "Describes the training data composition for the AI model, specifying three datasets and their contribution percentages.",
+            "entities": [
+                "\"v2 Elite\" Brain",
+                "CSE-CIC-IDS2018 Dataset",
+                "OWASP Juice Shop Dataset",
+                "CSIC Augmented Dataset"
+            ]
+        },
+        {
+            "heading": "Key Features",
+            "description": "Lists the primary capabilities of the system, including detection accuracy, adversarial resilience, hybrid risk engine, low latency, and self\u2011healing loop.",
+            "entities": [
+                "97.9% Accuracy",
+                "Adversarial Resilience",
+                "Hybrid Risk Engine",
+                "Sub\u20112ms Latency",
+                "Self\u2011Healing Loop"
+            ]
+        },
+        {
+            "heading": "Project Structure",
+            "description": "Outlines the modular directory layout and key scripts/modules that implement the WAF\u2019s functionality.",
+            "entities": [
+                "core/",
+                "waf_api.py",
+                "risk_engine.py",
+                "models/",
+                "scripts/",
+                "retrain_brain.py",
+                "augment_data.py",
+                "generate_juice_payloads.py",
+                "evaluate_model.py",
+                "data/"
+            ]
+        }
+    ],
+    "entities": [
+        {
+            "name": "Hybrid WAF",
+            "type": "system",
+            "description": "An industrial\u2011grade, closed\u2011loop security system that detects web attacks using both AI and deterministic signatures.",
+            "relationships": [
+                {
+                    "relation": "includes",
+                    "target": "Inference Engine",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "includes",
+                    "target": "Recursive Normalization Layer",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "uses",
+                    "target": "\"v2 Elite\" Brain",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "provides",
+                    "target": "Self\u2011Healing Loop",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "Inference Engine",
+            "type": "component",
+            "description": "Classifies HTTP traffic in less than 1.6\u202fms using an ONNX Runtime model.",
+            "relationships": [
+                {
+                    "relation": "implemented_by",
+                    "target": "waf_api.py",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "optimised_with",
+                    "target": "ONNX Runtime",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "Recursive Normalization Layer",
+            "type": "component",
+            "description": "Normalizes incoming requests through recursive unquoting to defeat evasion techniques.",
+            "relationships": [
+                {
+                    "relation": "implemented_by",
+                    "target": "risk_engine.py",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "\"v2 Elite\" Brain",
+            "type": "model",
+            "description": "The AI model trained on a tri\u2011source dataset to recognize modern web attacks.",
+            "relationships": [
+                {
+                    "relation": "trained_on",
+                    "target": "CSE-CIC-IDS2018 Dataset",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "trained_on",
+                    "target": "OWASP Juice Shop Dataset",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "trained_on",
+                    "target": "CSIC Augmented Dataset",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "stored_in",
+                    "target": "models/",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "CSE-CIC-IDS2018 Dataset",
+            "type": "dataset",
+            "description": "Provides 65\u202f% of the training data, teaching behavioral network flow patterns.",
+            "relationships": [
+                {
+                    "relation": "contributes_to",
+                    "target": "\"v2 Elite\" Brain",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "OWASP Juice Shop Dataset",
+            "type": "dataset",
+            "description": "Provides 35\u202f% of the training data, teaching modern REST API and NoSQL attacks.",
+            "relationships": [
+                {
+                    "relation": "contributes_to",
+                    "target": "\"v2 Elite\" Brain",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "CSIC Augmented Dataset",
+            "type": "dataset",
+            "description": "Baseline dataset that supplies a foundational HTTP attack vocabulary.",
+            "relationships": [
+                {
+                    "relation": "contributes_to",
+                    "target": "\"v2 Elite\" Brain",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "97.9% Accuracy",
+            "type": "performance_metric",
+            "description": "Overall detection accuracy across supported attack categories (SQLi, XSS, Path Traversal, Log4j, SSRF).",
+            "relationships": [
+                {
+                    "relation": "achieved_by",
+                    "target": "Hybrid WAF",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "Adversarial Resilience",
+            "type": "feature",
+            "description": "Built\u2011in mutation engine that generates over 40,000 attack variants to prevent bypasses.",
+            "relationships": [
+                {
+                    "relation": "implemented_by",
+                    "target": "augment_data.py",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "Hybrid Risk Engine",
+            "type": "component",
+            "description": "Combines ML confidence scores with deterministic signature matching and recursive normalization to compute risk.",
+            "relationships": [
+                {
+                    "relation": "implemented_by",
+                    "target": "risk_engine.py",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "uses",
+                    "target": "ML Confidence Scores",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "uses",
+                    "target": "Signature Matching",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "Sub\u20112ms Latency",
+            "type": "performance_metric",
+            "description": "Inference latency optimized to less than 2\u202fms per request in production.",
+            "relationships": [
+                {
+                    "relation": "enabled_by",
+                    "target": "ONNX Runtime",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "Self\u2011Healing Loop",
+            "type": "process",
+            "description": "Automated pipeline that bridges quarantined logs, allows human verification, and triggers a protected retraining step (Promotion Gate).",
+            "relationships": [
+                {
+                    "relation": "orchestrated_by",
+                    "target": "retrain_brain.py",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "uses",
+                    "target": "Promotion Gate",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "core/",
+            "type": "directory",
+            "description": "Contains the core WAF logic.",
+            "relationships": [
+                {
+                    "relation": "contains",
+                    "target": "waf_api.py",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "contains",
+                    "target": "risk_engine.py",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "waf_api.py",
+            "type": "script",
+            "description": "FastAPI inference server with hot\u2011reloading capability.",
+            "relationships": [
+                {
+                    "relation": "exposes",
+                    "target": "Inference Engine",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "risk_engine.py",
+            "type": "script",
+            "description": "Implements hybrid logic with recursive unquoting and signature matching.",
+            "relationships": [
+                {
+                    "relation": "implements",
+                    "target": "Hybrid Risk Engine",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "models/",
+            "type": "directory",
+            "description": "Stores ML artifacts such as ONNX models, scalers, and vectorizers.",
+            "relationships": [
+                {
+                    "relation": "stores",
+                    "target": "\"v2 Elite\" Brain",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "scripts/",
+            "type": "directory",
+            "description": "Contains automation and intelligence utilities.",
+            "relationships": [
+                {
+                    "relation": "contains",
+                    "target": "retrain_brain.py",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "contains",
+                    "target": "augment_data.py",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "contains",
+                    "target": "generate_juice_payloads.py",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "contains",
+                    "target": "evaluate_model.py",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "retrain_brain.py",
+            "type": "script",
+            "description": "Self\u2011healing training pipeline that retrains the model after verification.",
+            "relationships": [
+                {
+                    "relation": "part_of",
+                    "target": "Self\u2011Healing Loop",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "augment_data.py",
+            "type": "script",
+            "description": "Adversarial data mutation engine that creates 40,000+ attack variants (double encoding, comment injection).",
+            "relationships": [
+                {
+                    "relation": "provides",
+                    "target": "Adversarial Resilience",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "generate_juice_payloads.py",
+            "type": "script",
+            "description": "Generates modern API attack payloads based on the OWASP Juice Shop dataset.",
+            "relationships": [
+                {
+                    "relation": "supports",
+                    "target": "Training Data Generation",
+                    "evidence_type": "inferred"
+                }
+            ]
+        },
+        {
+            "name": "evaluate_model.py",
+            "type": "script",
+            "description": "Comprehensive benchmark suite for measuring accuracy, latency, and robustness.",
+            "relationships": [
+                {
+                    "relation": "measures",
+                    "target": "97.9% Accuracy",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "measures",
+                    "target": "Sub\u20112ms Latency",
+                    "evidence_type": "explicit"
+                }
+            ]
+        },
+        {
+            "name": "data/",
+            "type": "directory",
+            "description": "Holds training sets and behavioral logs used by the system.",
+            "relationships": [
+                {
+                    "relation": "contains",
+                    "target": "CSE-CIC-IDS2018 Dataset",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "contains",
+                    "target": "OWASP Juice Shop Dataset",
+                    "evidence_type": "explicit"
+                },
+                {
+                    "relation": "contains",
+                    "target": "CSIC Augmented Dataset",
+                    "evidence_type": "explicit"
+                }
+            ]
+        }
+    ],
+    "technical_details": [
+        {
+            "detail": "Detection Accuracy",
+            "value": "97.9%",
+            "context": "Overall accuracy across supported attack categories (SQLi, XSS, Path Traversal, Log4j, SSRF)."
+        },
+        {
+            "detail": "Inference Latency",
+            "value": "<1.6 ms per HTTP request",
+            "context": "Classification speed of the inference engine."
+        },
+        {
+            "detail": "Latency Claim",
+            "value": "Sub\u20112ms",
+            "context": "Optimized latency for high\u2011throughput production environments using ONNX Runtime."
+        },
+        {
+            "detail": "Adversarial Variant Count",
+            "value": "40,000+",
+            "context": "Number of attack variants generated by augment_data.py (e.g., double encoding, comment injection)."
+        },
+        {
+            "detail": "Dataset Composition",
+            "value": "CSE-CIC-IDS2018 65%, OWASP Juice Shop 35%, CSIC Augmented baseline",
+            "context": "Proportional contribution of each dataset to the training corpus."
+        },
+        {
+            "detail": "Runtime Engine",
+            "value": "ONNX Runtime",
+            "context": "Framework used to achieve sub\u20112ms inference latency."
+        }
+    ]
+}
