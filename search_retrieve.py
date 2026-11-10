@@ -13,7 +13,9 @@ collection = chroma_client.get_or_create_collection(name="my_collection")
 
 model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 
-with open("ground_truth.json", "r") as f:
+GROUND_TRUTH_PATH = os.path.join("data", "evaluation", "ground_truth.json")
+
+with open(GROUND_TRUTH_PATH, "r") as f:
     ground_truth = json.load(f)
 
 def search(query: str, n_results=10):

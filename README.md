@@ -19,17 +19,23 @@ This repo is not a polished production app—it's a practical playground for lea
 
 ```text
 .
-├── main.py                  # Basic RAG pipeline using Chroma + sentence embeddings + Groq
-├── ingest.py                # Ingests sample text files into a local vector store
-├── search_retrieve.py       # Chunking + embedding + retrieval logic for sample documents
-├── client.py                # FastAPI example for structured LLM output generation
-├── stream.py                # Streaming response demo using server-sent events
-├── Sample Data/             # Sample content used for retrieval experiments
-├── chroma_db/              # Local persistent Chroma database
-├── .env                    # Local environment variables (API keys)
-├── debug_chunks.json       # Debug output for chunks
-├── README.md               # Project documentation
-└── .gitignore              # Repo ignore rules
+├── ingest.py                # Ingestion, document analysis, chunk contextualization & vector storage
+├── search_retrieve.py       # Semantic search, RAG response generation, RRF multi-query & evaluation
+├── multi_query_generation.py # Multi-query expansion and perspective generation
+├── prompts/                 # System prompts for document analysis and contextualization
+│   ├── chunk_contextualise.txt
+│   └── document_analysis.txt
+├── data/                    # Data assets, analysis, and benchmarks
+│   ├── documents/           # Raw knowledge base text files
+│   ├── analysis/            # Structured document analysis JSON files
+│   └── evaluation/          # Ground truth benchmarks and evaluation metrics
+├── chroma_db/               # Local persistent Chroma vector database
+├── experiments/             # Non-RAG experiments and playground modules
+│   ├── notebooks/           # Jupyter notebooks (e.g., Ollama experimentation)
+│   └── streaming/           # FastAPI SSE streaming demo (stream.py) & client (client.py)
+├── .env                     # Local environment variables (API keys)
+├── README.md                # Project documentation
+└── .gitignore               # Repo ignore rules
 ```
 
 ## Core concepts explored
@@ -87,53 +93,47 @@ GROQ_API_KEY=your_key_here
 
 ## Running the experiments
 
-### Basic RAG example
-
-```bash
-python main.py
-```
-
-This runs a small RAG pipeline over sample queries.
-
-### Ingest sample data
+### Ingest and contextualise documents
 
 ```bash
 python ingest.py
 ```
 
-This creates the local vector database entries from the documents in `Sample Data/`.
+This processes the documents in `data/documents/`, applies document analysis from `data/analysis/` and prompts from `prompts/`, embeds chunks, and stores them in `chroma_db/`.
 
-### Search and retrieve
+### Search, retrieve, and evaluate
 
 ```bash
 python search_retrieve.py
 ```
 
-This demonstrates chunk generation and retrieval logic.
+This demonstrates chunk retrieval, semantic search, prompt synthesis, multi-query retrieval with Reciprocal Rank Fusion (RRF), and precision/recall evaluation against `data/evaluation/ground_truth.json`.
 
-### FastAPI structured output example
+### Multi-query generation
 
 ```bash
-uvicorn ingest:app --reload
+python multi_query_generation.py
 ```
 
-The file `ingest.py` defines a small FastAPI service that parses user requests into a structured ticket schema.
+Generates multiple perspective queries using Groq models to improve retrieval coverage in the RAG pipeline.
 
-### Streaming LLM response example
+### Streaming LLM response demo
 
 ```bash
+cd experiments/streaming
 uvicorn stream:app --reload
 ```
 
-Then use the sample client:
+In a separate terminal, test the streaming endpoint:
 
 ```bash
+cd experiments/streaming
 python client.py
 ```
 
 ## Sample data
 
-The repo includes example text documents for experimentation, including topics like:
+The repo includes example text documents in `data/documents/` for experimentation, including topics like:
 
 - WAF / cybersecurity concepts
 - hardware and AI compute notes
