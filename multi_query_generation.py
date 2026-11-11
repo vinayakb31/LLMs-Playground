@@ -30,7 +30,7 @@ def generate_multi_queries(query: str, client=groq_client):
     """
     
     response = client.chat.completions.create(
-        model = "openai/gpt-oss-20b",
+        model = "openai/gpt-oss-120b",
         temperature = 0.2,
         messages = [
             {
@@ -50,17 +50,38 @@ def generate_multi_queries(query: str, client=groq_client):
     
     return response
 
-queries_to_test = [
+queries = [
+    # --- Self-Healing WAF: answerable ---
+    "What is a web application firewall?",
+    "What accuracy does the self-healing WAF achieve?",
+    "Which datasets are used to train or evaluate the WAF?",
+    "What role does OWASP Juice Shop play in the WAF project?",
+    "How does the WAF defend against evasion attacks?",
+    "How does the Hybrid Risk Engine make decisions?",
+    "What is the inference latency of the WAF?",
+    "Which Python file implements the hybrid risk engine?",
+    "Which scripts are used in the WAF data augmentation pipeline?",
+    "How does adversarial augmentation help the WAF?",
+
+    # --- TurboQuant: answerable ---
     "What is the purpose of the TurboQuant project?",
-    "Can I use TurboQuant without an internet connection?",
-    "Does TurboQuant save previous conversations?"
+    "How does TurboQuant support private, offline inference?",
+    "What hardware does TurboQuant target?",
+    "What software prerequisites are required to run TurboQuant?",
+    "Does TurboQuant support persistent conversation history?",
+
+    # --- Questions the corpus cannot answer ---
+    "Who developed the TurboQuant algorithm?",
+    "What GPT model does TurboQuant recommend?",
+    "How much faster is TurboQuant than traditional quantisation?",
+    "Can an RTX 3050 run TurboQuant reliably?",
+    "What is the capital of France?",
 ]
 
 generated_queries = {}
 
-for query in queries_to_test:
+for query in queries:
     response = generate_multi_queries(query=query, client=groq_client)
-
     generated_queries[query] = response
 
 print(generated_queries)

@@ -1,0 +1,122 @@
+
+{
+    "What is a web application firewall?": [
+        "What is a web application firewall definition and purpose",
+        "How does a web application firewall protect web applications",
+        "Web application firewall features, architecture, and components"
+    ],
+
+    "What accuracy does the self-healing WAF achieve?": [
+        "self-healing WAF detection accuracy metrics",
+        "performance accuracy of a self-healing web application firewall",
+        "precision rate of self-healing WAF protection"
+    ],
+
+    "Which datasets are used to train or evaluate the WAF?": [
+        "WAF training and evaluation datasets",
+        "Datasets used to train the Web Application Firewall",
+        "Benchmark datasets for assessing WAF performance"
+    ],
+
+    "What role does OWASP Juice Shop play in the WAF project?": [
+        "OWASP Juice Shop involvement in the WAF project",
+        "Purpose of using OWASP Juice Shop for WAF testing and development",
+        "How OWASP Juice Shop is integrated as a test application in the WAF initiative"
+    ],
+
+    "How does the WAF defend against evasion attacks?": [
+        "WAF techniques for mitigating HTTP request evasion attacks",
+        "How web application firewalls detect and block evasion tactics",
+        "WAF evasion prevention methods and rule configuration strategies"
+    ],
+
+    "How does the Hybrid Risk Engine make decisions?": [
+        "Hybrid Risk Engine decision-making algorithm and workflow",
+        "How the Hybrid Risk Engine evaluates risk factors to make decisions",
+        "Decision logic and architecture behind the Hybrid Risk Engine"
+    ],
+
+    "What is the inference latency of the WAF?": [
+        "WAF inference latency benchmarks",
+        "average inference time for the WAF model",
+        "latency performance of WAF during inference"
+    ],
+
+    "Which Python file implements the hybrid risk engine?": [
+        "Python file implementing the hybrid risk engine",
+        "Hybrid risk engine implementation source code file in Python",
+        "Which .py module contains the hybrid risk engine class"
+    ],
+
+    "Which scripts are used in the WAF data augmentation pipeline?": [
+        "WAF data augmentation pipeline script list",
+        "Scripts employed in the WAF augmentation workflow",
+        "Implementation files used for WAF data augmentation pipeline"
+    ],
+
+    "How does adversarial augmentation help the WAF?": [
+        "Impact of adversarial data augmentation on web application firewall performance",
+        "How adversarial augmentation improves detection capabilities of WAFs",
+        "Role of adversarial augmentation techniques in enhancing WAF security"
+    ],
+
+    "What is the purpose of the TurboQuant project?": [
+        "TurboQuant project objectives and intended outcomes",
+        "Purpose and goals of the TurboQuant initiative",
+        "What problem does the TurboQuant project aim to solve?"
+    ],
+
+    "How does TurboQuant support private, offline inference?": [
+        "TurboQuant mechanisms for private offline inference",
+        "How does TurboQuant enable on-device inference without internet connectivity",
+        "Security and privacy features of TurboQuant for offline model execution"
+    ],
+
+    "What hardware does TurboQuant target?": [
+        "TurboQuant supported hardware platforms",
+        "Hardware compatibility requirements for TurboQuant",
+        "Target devices and architectures for TurboQuant"
+    ],
+
+    "What software prerequisites are required to run TurboQuant?": [
+        "TurboQuant software dependencies and required packages",
+        "Necessary runtime environment and system requirements for TurboQuant",
+        "TurboQuant required libraries, OS compatibility, and installation prerequisites"
+    ],
+
+    "Does TurboQuant support persistent conversation history?": [
+        "TurboQuant persistent conversation history support",
+        "TurboQuant retain chat history across sessions",
+        "TurboQuant conversation memory feature availability"
+    ],
+
+    "Who developed the TurboQuant algorithm?": [
+        "TurboQuant algorithm developer",
+        "Originator of the TurboQuant algorithm",
+        "Research team behind TurboQuant algorithm"
+    ],
+
+    "What GPT model does TurboQuant recommend?": [
+        "TurboQuant recommended GPT model",
+        "Which GPT model does TurboQuant suggest",
+        "TurboQuant's recommendation for a GPT model"
+    ],
+
+    "How much faster is TurboQuant than traditional quantisation?": [
+        "TurboQuant speedup compared to conventional quantisation methods",
+        "Benchmark results: runtime of TurboQuant versus traditional quantisation",
+        "Performance improvement factor of TurboQuant over standard quantisation techniques"
+    ],
+
+    "Can an RTX 3050 run TurboQuant reliably?": [
+        "RTX 3050 compatibility and performance with TurboQuant",
+        "Is TurboQuant stable on an NVIDIA RTX 3050 GPU",
+        "TurboQuant system requirements versus RTX 3050 capabilities"
+    ],
+
+    "What is the capital of France?": [
+        "capital city of France",
+        "which city is the capital of France",
+        "France's seat of government location"
+    ]
+}

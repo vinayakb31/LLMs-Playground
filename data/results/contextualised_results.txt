@@ -1,0 +1,237 @@
+Query: What is a web application firewall?
+Normal Results:
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.0, 'precision': 0.0}, 5: {'recall': 0.0, 'precision': 0.0}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.2}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+Results (Multi Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.0, 'precision': 0.0}, 5: {'recall': 0.0, 'precision': 0.0}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+
+
+Query: What accuracy does the self-healing WAF achieve?
+Normal Results:
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 0.6666666666666666, 'precision': 0.6666666666666666}, 5: {'recall': 0.6666666666666666, 'precision': 0.4}, 10: {'recall': 1.0, 'precision': 0.3}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 1.0, 'precision': 1.0}, 5: {'recall': 1.0, 'precision': 0.6}, 10: {'recall': 1.0, 'precision': 0.3}}
+
+Results (Multi Query):
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 0.6666666666666666, 'precision': 0.6666666666666666}, 5: {'recall': 1.0, 'precision': 0.6}, 10: {'recall': 1.0, 'precision': 0.3}}
+
+
+
+Query: Which datasets are used to train or evaluate the WAF?
+Normal Results:
+{1: {'recall': 0.25, 'precision': 1.0}, 3: {'recall': 0.25, 'precision': 0.3333333333333333}, 5: {'recall': 0.25, 'precision': 0.2}, 10: {'recall': 0.75, 'precision': 0.3}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.25, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.6666666666666666}, 5: {'recall': 0.75, 'precision': 0.6}, 10: {'recall': 1.0, 'precision': 0.4}}
+
+Results (Multi Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.25, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.4}, 10: {'recall': 0.75, 'precision': 0.3}}
+
+
+
+Query: What role does OWASP Juice Shop play in the WAF project?
+Normal Results:
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.2}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.2}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+Results (Multi Query):
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.2}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+
+
+Query: How does the WAF defend against evasion attacks?
+Normal Results:
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.0, 'precision': 0.0}, 5: {'recall': 0.0, 'precision': 0.0}, 10: {'recall': 0.3333333333333333, 'precision': 0.1}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.0, 'precision': 0.0}, 5: {'recall': 0.0, 'precision': 0.0}, 10: {'recall': 0.0, 'precision': 0.0}}
+
+Results (Multi Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.0, 'precision': 0.0}, 5: {'recall': 0.0, 'precision': 0.0}, 10: {'recall': 0.0, 'precision': 0.0}}
+
+
+
+Query: How does the Hybrid Risk Engine make decisions?
+Normal Results:
+{1: {'recall': 0.25, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.6666666666666666}, 5: {'recall': 0.5, 'precision': 0.4}, 10: {'recall': 0.5, 'precision': 0.2}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.25, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.6666666666666666}, 5: {'recall': 0.5, 'precision': 0.4}, 10: {'recall': 0.5, 'precision': 0.2}}
+
+Results (Multi Query):
+{1: {'recall': 0.25, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.6666666666666666}, 5: {'recall': 0.5, 'precision': 0.4}, 10: {'recall': 0.5, 'precision': 0.2}}
+
+
+
+Query: What is the inference latency of the WAF?
+Normal Results:
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.3333333333333333, 'precision': 0.2}, 10: {'recall': 0.3333333333333333, 'precision': 0.1}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.3333333333333333, 'precision': 0.2}, 10: {'recall': 0.3333333333333333, 'precision': 0.1}}
+
+Results (Multi Query):
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.3333333333333333, 'precision': 0.2}, 10: {'recall': 0.3333333333333333, 'precision': 0.1}}
+
+
+
+Query: Which Python file implements the hybrid risk engine?
+Normal Results:
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.2}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.2}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+Results (Multi Query):
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.2}, 10: {'recall': 0.5, 'precision': 0.1}}
+
+
+
+Query: Which scripts are used in the WAF data augmentation pipeline?
+Normal Results:
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.3333333333333333, 'precision': 0.2}, 10: {'recall': 0.6666666666666666, 'precision': 0.2}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.3333333333333333, 'precision': 0.2}, 10: {'recall': 0.6666666666666666, 'precision': 0.2}}
+
+Results (Multi Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.6666666666666666, 'precision': 0.4}, 10: {'recall': 0.6666666666666666, 'precision': 0.2}}
+
+
+
+Query: How does adversarial augmentation help the WAF?
+Normal Results:
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.3333333333333333, 'precision': 0.2}, 10: {'recall': 0.6666666666666666, 'precision': 0.2}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.6666666666666666, 'precision': 0.4}, 10: {'recall': 1.0, 'precision': 0.3}}
+
+Results (Multi Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.3333333333333333, 'precision': 0.3333333333333333}, 5: {'recall': 0.6666666666666666, 'precision': 0.4}, 10: {'recall': 0.6666666666666666, 'precision': 0.2}}
+
+
+
+Query: What is the purpose of the TurboQuant project?
+Normal Results:
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.5, 'precision': 0.6666666666666666}, 5: {'recall': 0.5, 'precision': 0.4}, 10: {'recall': 0.5, 'precision': 0.2}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.25, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.4}, 10: {'recall': 0.5, 'precision': 0.2}}
+
+Results (Multi Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.25, 'precision': 0.3333333333333333}, 5: {'recall': 0.25, 'precision': 0.2}, 10: {'recall': 0.75, 'precision': 0.3}}
+
+
+
+Query: How does TurboQuant support private, offline inference?
+Normal Results:
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 0.6666666666666666, 'precision': 0.6666666666666666}, 5: {'recall': 0.6666666666666666, 'precision': 0.4}, 10: {'recall': 0.6666666666666666, 'precision': 0.2}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 0.6666666666666666, 'precision': 0.6666666666666666}, 5: {'recall': 0.6666666666666666, 'precision': 0.4}, 10: {'recall': 0.6666666666666666, 'precision': 0.2}}
+
+Results (Multi Query):
+{1: {'recall': 0.3333333333333333, 'precision': 1.0}, 3: {'recall': 0.6666666666666666, 'precision': 0.6666666666666666}, 5: {'recall': 0.6666666666666666, 'precision': 0.4}, 10: {'recall': 0.6666666666666666, 'precision': 0.2}}
+
+
+
+Query: What hardware does TurboQuant target?
+Normal Results:
+{1: {'recall': 0.25, 'precision': 1.0}, 3: {'recall': 0.75, 'precision': 1.0}, 5: {'recall': 0.75, 'precision': 0.6}, 10: {'recall': 0.75, 'precision': 0.3}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.25, 'precision': 1.0}, 3: {'recall': 0.75, 'precision': 1.0}, 5: {'recall': 0.75, 'precision': 0.6}, 10: {'recall': 0.75, 'precision': 0.3}}
+
+Results (Multi Query):
+{1: {'recall': 0.25, 'precision': 1.0}, 3: {'recall': 0.25, 'precision': 0.3333333333333333}, 5: {'recall': 0.5, 'precision': 0.4}, 10: {'recall': 0.75, 'precision': 0.3}}
+
+
+
+Query: What software prerequisites are required to run TurboQuant?
+Normal Results:
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 1.0, 'precision': 0.4}, 10: {'recall': 1.0, 'precision': 0.2}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 1.0, 'precision': 0.6666666666666666}, 5: {'recall': 1.0, 'precision': 0.4}, 10: {'recall': 1.0, 'precision': 0.2}}
+
+Results (Multi Query):
+{1: {'recall': 0.0, 'precision': 0.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 1.0, 'precision': 0.4}, 10: {'recall': 1.0, 'precision': 0.2}}
+
+
+
+Query: Does TurboQuant support persistent conversation history?
+Normal Results:
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 1.0, 'precision': 0.4}, 10: {'recall': 1.0, 'precision': 0.2}}
+
+Results (Rewritten Query):
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 1.0, 'precision': 0.4}, 10: {'recall': 1.0, 'precision': 0.2}}
+
+Results (Multi Query):
+{1: {'recall': 0.5, 'precision': 1.0}, 3: {'recall': 0.5, 'precision': 0.3333333333333333}, 5: {'recall': 1.0, 'precision': 0.4}, 10: {'recall': 1.0, 'precision': 0.2}}
+
+
+
+Query: Who developed the TurboQuant algorithm?
+Normal Results:
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Rewritten Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Multi Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+
+
+Query: What GPT model does TurboQuant recommend?
+Normal Results:
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Rewritten Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Multi Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+
+
+Query: How much faster is TurboQuant than traditional quantisation?
+Normal Results:
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Rewritten Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Multi Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+
+
+Query: Can an RTX 3050 run TurboQuant reliably?
+Normal Results:
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Rewritten Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Multi Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+
+
+Query: What is the capital of France?
+Normal Results:
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Rewritten Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}
+
+Results (Multi Query):
+{1: {'recall': None, 'precision': None}, 3: {'recall': None, 'precision': None}, 5: {'recall': None, 'precision': None}, 10: {'recall': None, 'precision': None}}

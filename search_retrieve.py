@@ -13,11 +13,6 @@ collection = chroma_client.get_or_create_collection(name="my_collection")
 
 model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 
-GROUND_TRUTH_PATH = os.path.join("data", "evaluation", "ground_truth.json")
-
-with open(GROUND_TRUTH_PATH, "r") as f:
-    ground_truth = json.load(f)
-
 def search(query: str, n_results=10):
     query_embeddings = model.encode(query)
 
@@ -283,57 +278,65 @@ queries = [
     "What is the capital of France?",
 ]
 
+with open("data/generated_queries.json", "r") as f:
+    generated_queries = json.load(f)
+
+GROUND_TRUTH_PATH = os.path.join("data", "evaluation", "ground_truth.json")
+with open(GROUND_TRUTH_PATH, "r") as f:
+    ground_truth = json.load(f)
+
 k_values = [1, 3, 5, 10]
-queries_to_test = [
-    "What is the purpose of the TurboQuant project?",
-    "Can I use TurboQuant without an internet connection?",
-    "Does TurboQuant save previous conversations?"
-]
 
-generated_test_queries = {
-    "What is the purpose of the TurboQuant project?": [
-        "TurboQuant project objectives and goals",
-        "Intended purpose and functionality of TurboQuant",
-        "Benefits and impact of the TurboQuant initiative"
-    ],
+# queries_to_test = [
+#     "What is the purpose of the TurboQuant project?",
+#     "Can I use TurboQuant without an internet connection?",
+#     "Does TurboQuant save previous conversations?"
+# ]
 
-    "Can I use TurboQuant without an internet connection?": [
-        "TurboQuant offline operation",
-        "Does TurboQuant require an internet connection?",
-        "TurboQuant features available without internet"
-    ],
+# generated_test_queries = {
+#     "What is the purpose of the TurboQuant project?": [
+#         "TurboQuant project objectives and goals",
+#         "Intended purpose and functionality of TurboQuant",
+#         "Benefits and impact of the TurboQuant initiative"
+#     ],
 
-    "Does TurboQuant save previous conversations?": [
-        "TurboQuant conversation history retention policy",
-        "TurboQuant logs previous chat sessions",
-        "TurboQuant privacy policy on storing user conversations"
-    ]
-}
+#     "Can I use TurboQuant without an internet connection?": [
+#         "TurboQuant offline operation",
+#         "Does TurboQuant require an internet connection?",
+#         "TurboQuant features available without internet"
+#     ],
 
-test_ground_truth = {
-    "What is the purpose of the TurboQuant project?": ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
-    "Can I use TurboQuant without an internet connection?": ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
-    "Does TurboQuant save previous conversations?": ["turboquant_4", "turboquant_5"]
-}
+#     "Does TurboQuant save previous conversations?": [
+#         "TurboQuant conversation history retention policy",
+#         "TurboQuant logs previous chat sessions",
+#         "TurboQuant privacy policy on storing user conversations"
+#     ]
+# }
+
+# test_ground_truth = {
+#     "What is the purpose of the TurboQuant project?": ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
+#     "Can I use TurboQuant without an internet connection?": ["turboquant_0", "turboquant_1", "turboquant_2", "turboquant_3"],
+#     "Does TurboQuant save previous conversations?": ["turboquant_4", "turboquant_5"]
+# }
 
 
-for query in queries_to_test:
+for query in queries:
     results_normal = evaluate_retrieval(query=query,
-                                        relevant_chunks=test_ground_truth[query],
-                                        generated_queries=generated_test_queries,
+                                        relevant_chunks=ground_truth[query],
+                                        generated_queries=generated_queries,
                                         technique="single",
                                         k_values=k_values)
     
     rewritten_query = rewrite_query(query=query)
     results_rewritten = evaluate_retrieval(query=rewritten_query,
-                                           relevant_chunks=test_ground_truth[query],
-                                           generated_queries=generated_test_queries,
+                                           relevant_chunks=ground_truth[query],
+                                           generated_queries=generated_queries,
                                            technique="single",
                                            k_values=k_values)
     
     results_multi = evaluate_retrieval(query=query,
-                                       relevant_chunks=test_ground_truth[query],
-                                       generated_queries=generated_test_queries,
+                                       relevant_chunks=ground_truth[query],
+                                       generated_queries=generated_queries,
                                        technique="multi",
                                        k_values=k_values)
     
