@@ -135,7 +135,7 @@ def embed_chunks(model, chunks) -> list:
     embedded_chunks = chunks
 
     for i in embedded_chunks:
-        chunks_text.append(i['text'])
+        chunks_text.append(i['contextualised_chunk'])
         
     embeddings = model.encode(chunks_text)
     
@@ -146,8 +146,10 @@ def embed_chunks(model, chunks) -> list:
     
 def generator(files: list):
     for file in files:
-        chunks = generate_chunks(text=file["file"], filename=file["filename"], chunk_size=40, overlap=1)
-        embedded_chunks = embed_chunks(model, chunks)
+        chunks = generate_chunks(text=file["file"], filename=file["filename"], chunk_size=40, overlap=0)
+        chunks_contextualised = contextualise_chunks(chunks=chunks, analysed_file=f'{file["filename"]}.json', client=ollama_client)
+
+        embedded_chunks = embed_chunks(model, chunks_contextualised)
         
         for chunk in embedded_chunks:
             yield chunk
@@ -176,12 +178,12 @@ files = [
     }
 ]
 
-# embedded_chunks = list(generator(files))
-# addToChroma(embedded_chunks=embedded_chunks)
+embedded_chunks = list(generator(files))
+addToChroma(embedded_chunks=embedded_chunks)
 
-chunks = generate_chunks(text=file1, filename='waf', chunk_size=40, overlap=0)
-# print(chunks)
+# chunks = generate_chunks(text=file1, filename='waf', chunk_size=40, overlap=0)
+# # print(chunks)
 
-chunks_contextualised = contextualise_chunks(chunks=chunks, analysed_file='self_healing_waf.json', client=ollama_client)
-for chunk in chunks_contextualised:
-    print(chunk,end='\n\n')
+# chunks_contextualised = contextualise_chunks(chunks=chunks, analysed_file='self_healing_waf.json', client=ollama_client)
+# for chunk in chunks_contextualised:
+#     print(chunk,end='\n\n')
