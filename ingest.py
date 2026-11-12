@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 ollama_client = OpenAI(
-    base_url="http://192.168.1.14:11434/v1",
+    base_url="http://192.168.1.9:11434/v1",
     api_key="ollama"
 )
 model = SentenceTransformer("BAAI/bge-small-en-v1.5")
