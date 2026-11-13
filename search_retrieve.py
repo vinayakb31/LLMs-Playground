@@ -1,7 +1,7 @@
 import chromadb
 import os
 import json
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, CrossEncoder
 from dotenv import load_dotenv
 from groq import Groq
 
@@ -12,6 +12,7 @@ chroma_client = chromadb.PersistentClient(path="./chroma_db")
 collection = chroma_client.get_or_create_collection(name="my_collection")
 
 model = SentenceTransformer("BAAI/bge-small-en-v1.5")
+cross_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
 def search(query: str, n_results=10):
     query_embeddings = model.encode(query)
@@ -320,27 +321,42 @@ k_values = [1, 3, 5, 10]
 # }
 
 
+# for query in queries:
+#     results_normal = evaluate_retrieval(query=query,
+#                                         relevant_chunks=ground_truth[query],
+#                                         generated_queries=generated_queries,
+#                                         technique="single",
+#                                         k_values=k_values)
+    
+#     rewritten_query = rewrite_query(query=query)
+#     results_rewritten = evaluate_retrieval(query=rewritten_query,
+#                                            relevant_chunks=ground_truth[query],
+#                                            generated_queries=generated_queries,
+#                                            technique="single",
+#                                            k_values=k_values)
+    
+#     results_multi = evaluate_retrieval(query=query,
+#                                        relevant_chunks=ground_truth[query],
+#                                        generated_queries=generated_queries,
+#                                        technique="multi",
+#                                        k_values=k_values)
+    
+#     print(f"Query: {query}")
+#     print(f"Normal Results:\n{results_normal}\n")
+#     print(f"Results (Rewritten Query):\n{results_rewritten}\n")
+#     print(f"Results (Multi Query):\n{results_multi}\n\n\n")
+
 for query in queries:
-    results_normal = evaluate_retrieval(query=query,
-                                        relevant_chunks=ground_truth[query],
-                                        generated_queries=generated_queries,
-                                        technique="single",
-                                        k_values=k_values)
-    
-    rewritten_query = rewrite_query(query=query)
-    results_rewritten = evaluate_retrieval(query=rewritten_query,
-                                           relevant_chunks=ground_truth[query],
-                                           generated_queries=generated_queries,
-                                           technique="single",
-                                           k_values=k_values)
-    
-    results_multi = evaluate_retrieval(query=query,
-                                       relevant_chunks=ground_truth[query],
-                                       generated_queries=generated_queries,
-                                       technique="multi",
-                                       k_values=k_values)
+    search_results = search(query=query, n_results=20)
+    search_documents = search_results["documents"][0]
+
+    scores = cross_model.predict([(query, search_documents[0]),(query, search_documents[1]),(query, search_documents[2]),(query, search_documents[3]),(query, search_documents[4]),(query, search_documents[5]),(query, search_documents[6]),(query, search_documents[7]),(query, search_documents[8]),(query, search_documents[9])])
+    results = []
+
+    for score, id, document, distance in zip(scores, search_results['ids'][0], search_documents, search_results['distances'][0]):
+        results.append([id, document, score, distance])
+        
+    results = sorted(results, key=lambda x: x[2], reverse=True)
     
     print(f"Query: {query}")
-    print(f"Normal Results:\n{results_normal}\n")
-    print(f"Results (Rewritten Query):\n{results_rewritten}\n")
-    print(f"Results (Multi Query):\n{results_multi}\n\n\n")
+    print(results[:10], end='\n\n')
