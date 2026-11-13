@@ -143,7 +143,7 @@ def recall_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> float 
         if chunk in retrieved_chunks[:k]:
             recall_value += 1
             
-    return recall_value/len(relevant_chunks)
+    return round(recall_value/len(relevant_chunks), 2)
 
 def precision_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> float | None:
     if not relevant_chunks:
@@ -158,52 +158,51 @@ def precision_at_k(retrieved_chunks: list, relevant_chunks: list, k: int) -> flo
     if not retrieved_chunks[:k]:
         return None
 
-    return precision_value / len(retrieved_chunks[:k])
+    return round(precision_value / len(retrieved_chunks[:k]), 2)
 
-def evaluation(queries: list, ground_truth: list, k_values: list):
+def cross_encoder_evaluation(queries: list, ground_truth, model=cross_model):
+    cross_encoder_results = list()
     eval_results = []
+    idx = 0
+    k_values = [1,3,5,10]
     
     for query in queries:
-        search_results = search(query=query, n_results=max(k_values))
-        retrieved_chunks = search_results['ids'][0]
-
-        for i in ground_truth:
-            rel_chunks = []
-            
-            if i['query'] == query:
-                rel_chunks = i['relevant_chunks']
-                break
-
-        if not rel_chunks:
-            continue
-            
-        query_result = {
-            "query": query,
-            "recall": {},
-            "precision": {},
-            "relevant_retrieved": {},
-            "relevant_missed": []
-        }
-
-        for rank, chunk in enumerate(retrieved_chunks, start=1):
-            if chunk in rel_chunks:
-                query_result["relevant_retrieved"][chunk] = rank
-                    
-        for chunk in rel_chunks:
-            if chunk not in retrieved_chunks:
-                query_result["relevant_missed"].append(chunk)
-
-        for k in k_values:
-            query_result["recall"][k] = recall_at_k(
-                retrieved_chunks, rel_chunks, k
-            )
-
-            query_result["precision"][k] = precision_at_k(
-                retrieved_chunks, rel_chunks, k
-            )
-
-        eval_results.append(query_result)
+        query = rewrite_query(query=query)
         
+        search_results = search(query=query, n_results=20)
+        search_documents = search_results["documents"][0]
+
+        scores = model.predict([(query, search_documents[0]),(query, search_documents[1]),(query, search_documents[2]),(query, search_documents[3]),(query, search_documents[4]),(query, search_documents[5]),(query, search_documents[6]),(query, search_documents[7]),(query, search_documents[8]),(query, search_documents[9]),
+                                    (query, search_documents[10]),(query, search_documents[11]),(query, search_documents[12]),(query, search_documents[13]),(query, search_documents[14]),(query, search_documents[15]),(query, search_documents[16]),(query, search_documents[17]),(query, search_documents[18]),(query, search_documents[19])])
+        results = []
+
+        for score, id, document, distance in zip(scores, search_results['ids'][0], search_documents, search_results['distances'][0]):
+            results.append([id, document, score, distance])
+            
+        results = sorted(results, key=lambda x: x[2], reverse=True)
+        cross_encoder_results.append([])
+        
+        for result in results[:10]:
+            cross_encoder_results[idx].append(result[0])
+            
+        idx += 1
+        
+    for i in range(len(queries)):
+        relevant_chunks = ground_truth[queries[i]]
+        
+        eval_results.append({
+            'query': queries[i],
+            'recall': [],
+            'precision': []
+        })
+        
+        for k in k_values:
+            recall_score = recall_at_k(retrieved_chunks=cross_encoder_results[i], relevant_chunks=relevant_chunks, k=k)
+            precision_score = precision_at_k(retrieved_chunks=cross_encoder_results[i], relevant_chunks=relevant_chunks, k=k)
+            
+            eval_results[i]['recall'].append(recall_score)
+            eval_results[i]['precision'].append(precision_score)
+                        
     return eval_results
 
 def calculate_average(eval_results: list, k_values: list):
@@ -346,17 +345,5 @@ k_values = [1, 3, 5, 10]
 #     print(f"Results (Rewritten Query):\n{results_rewritten}\n")
 #     print(f"Results (Multi Query):\n{results_multi}\n\n\n")
 
-for query in queries:
-    search_results = search(query=query, n_results=20)
-    search_documents = search_results["documents"][0]
-
-    scores = cross_model.predict([(query, search_documents[0]),(query, search_documents[1]),(query, search_documents[2]),(query, search_documents[3]),(query, search_documents[4]),(query, search_documents[5]),(query, search_documents[6]),(query, search_documents[7]),(query, search_documents[8]),(query, search_documents[9])])
-    results = []
-
-    for score, id, document, distance in zip(scores, search_results['ids'][0], search_documents, search_results['distances'][0]):
-        results.append([id, document, score, distance])
-        
-    results = sorted(results, key=lambda x: x[2], reverse=True)
-    
-    print(f"Query: {query}")
-    print(results[:10], end='\n\n')
+# cross_encoder_results = cross_encoder_evaluation(queries=queries)
+print(cross_encoder_evaluation(queries=queries, ground_truth=ground_truth))
